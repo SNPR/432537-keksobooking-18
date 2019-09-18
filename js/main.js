@@ -1,5 +1,21 @@
 'use strict';
 
+var AVATARS_AMOUNT = 8;
+var ADVERTISEMENTS_AMOUNT = 8;
+var PHOTOS_AMOUNT = 3;
+var MIN_ROOM_PRICE = 100;
+var MAX_ROOM_PRICE = 5000;
+var MIN_ROOMS_AMOUNT = 1;
+var MAX_ROOMS_AMOUNT = 5;
+var MIN_GUESTS_AMOUNT = 1;
+var MAX_GUESTS_AMOUNT = 10;
+var PIN_HEIGHT = 70;
+var PIN_WIDTH = 50;
+var MIN_X_POSITION = 0;
+var MAX_X_POSITION = 1200;
+var MIN_Y_POSITION = 130;
+var MAX_Y_POSITION = 630;
+
 var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var types = ['palace', 'flat', 'house', 'bungalo'];
 var times = ['12:00', '13:00', '14:00'];
@@ -7,7 +23,7 @@ var times = ['12:00', '13:00', '14:00'];
 function getAvatarsList() {
   var avatarsArray = [];
 
-  for (var i = 1; i <= 8; i++) {
+  for (var i = 1; i <= AVATARS_AMOUNT; i++) {
     avatarsArray.push('img/avatars/user0' + i + '.png');
   }
 
@@ -17,7 +33,7 @@ function getAvatarsList() {
 function getPhotosList() {
   var photosArray = [];
 
-  for (var i = 1; i <= 3; i++) {
+  for (var i = 1; i <= PHOTOS_AMOUNT; i++) {
     photosArray.push('http://o0.github.io/assets/images/tokyo/hotel' + i + '.jpg');
   }
 
@@ -49,8 +65,8 @@ function generateAdvertisement(amount) {
     var randomAvatarIndex = generateRandomNumber(0, avatars.length);
     var avatar = avatars[randomAvatarIndex];
     avatars.splice(randomAvatarIndex, 1);
-    var locationX = generateRandomNumber(0, 1200);
-    var locationY = generateRandomNumber(130, 630);
+    var locationX = generateRandomNumber(MIN_X_POSITION, MAX_X_POSITION);
+    var locationY = generateRandomNumber(MIN_Y_POSITION, MAX_Y_POSITION);
     var photos = getPhotosList();
 
     advertisements.push({
@@ -58,10 +74,10 @@ function generateAdvertisement(amount) {
         avatar: avatar,
         title: 'Супер крутое жильё',
         address: locationX + ', ' + locationY,
-        price: generateRandomNumber(100, 5000),
+        price: generateRandomNumber(MIN_ROOM_PRICE, MAX_ROOM_PRICE),
         type: types[generateRandomNumber(0, types.length)],
-        rooms: generateRandomNumber(1, 5),
-        guests: generateRandomNumber(1, 10),
+        rooms: generateRandomNumber(MIN_ROOMS_AMOUNT, MAX_ROOMS_AMOUNT),
+        guests: generateRandomNumber(MIN_GUESTS_AMOUNT, MAX_GUESTS_AMOUNT),
         checkin: times[generateRandomNumber(0, times.length)],
         checkout: times[generateRandomNumber(0, times.length)],
         features: shuffleArray(features).slice(0, generateRandomNumber(1, features.length)),
@@ -78,7 +94,7 @@ function generateAdvertisement(amount) {
   return advertisements;
 }
 
-var advertisements = generateAdvertisement(8);
+var advertisements = generateAdvertisement(ADVERTISEMENTS_AMOUNT);
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -90,14 +106,12 @@ var fragment = document.createDocumentFragment();
 function renderAdvertisement(advertisement) {
   var pin = pinTemplate.cloneNode(true);
   var pinImage = pin.querySelector('img');
-  var pinHeight = 70;
-  var pinWidth = 50;
 
   pin.style =
     'left: ' +
-    (advertisement.location.x - pinWidth) +
+    (advertisement.location.x - PIN_HEIGHT) +
     'px; top: ' +
-    (advertisement.location.y - pinHeight) +
+    (advertisement.location.y - PIN_WIDTH) +
     'px';
   pinImage.src = advertisement.author.avatar;
   pinImage.alt = advertisement.title;
