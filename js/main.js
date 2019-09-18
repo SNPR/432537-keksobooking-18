@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-var features = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
-var types = ["palace", "flat", "house", "bungalo"];
-var times = ["12:00", "13:00", "14:00"];
+var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var types = ['palace', 'flat', 'house', 'bungalo'];
+var times = ['12:00', '13:00', '14:00'];
 
 function getAvatarsList() {
   var avatarsArray = [];
 
   for (var i = 1; i <= 8; i++) {
-    avatarsArray.push("img/avatars/user0" + i + ".png");
+    avatarsArray.push('img/avatars/user0' + i + '.png');
   }
 
   return avatarsArray;
@@ -18,7 +18,7 @@ function getPhotosList() {
   var photosArray = [];
 
   for (var i = 1; i <= 3; i++) {
-    photosArray.push("http://o0.github.io/assets/images/tokyo/hotel" + i + ".jpg");
+    photosArray.push('http://o0.github.io/assets/images/tokyo/hotel' + i + '.jpg');
   }
 
   return photosArray;
@@ -56,8 +56,8 @@ function generateAdvertisement(amount) {
     advertisements.push({
       author: {
         avatar: avatar,
-        title: "Супер крутое жильё",
-        address: locationX + ", " + locationY,
+        title: 'Супер крутое жильё',
+        address: locationX + ', ' + locationY,
         price: generateRandomNumber(100, 5000),
         type: types[generateRandomNumber(0, types.length)],
         rooms: generateRandomNumber(1, 5),
@@ -65,7 +65,7 @@ function generateAdvertisement(amount) {
         checkin: times[generateRandomNumber(0, times.length)],
         checkout: times[generateRandomNumber(0, times.length)],
         features: shuffleArray(features).slice(0, generateRandomNumber(1, features.length)),
-        description: "Самое популярное жильё в городе!",
+        description: 'Самое популярное жильё в городе!',
         photos: shuffleArray(photos).slice(0, generateRandomNumber(1, photos.length))
       },
       location: {
@@ -80,25 +80,25 @@ function generateAdvertisement(amount) {
 
 var advertisements = generateAdvertisement(8);
 
-var map = document.querySelector(".map");
-map.classList.remove("map--faded");
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
 
-var pinTemplate = document.querySelector("#pin").content.querySelector(".map__pin");
-var pins = document.querySelector(".map__pins");
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var pins = document.querySelector('.map__pins');
 var fragment = document.createDocumentFragment();
 
 function renderAdvertisement(advertisement) {
   var pin = pinTemplate.cloneNode(true);
-  var pinImage = pin.querySelector("img");
+  var pinImage = pin.querySelector('img');
   var pinHeight = 70;
   var pinWidth = 50;
 
   pin.style =
-    "left: " +
+    'left: ' +
     (advertisement.location.x - pinWidth) +
-    "px; top: " +
+    'px; top: ' +
     (advertisement.location.y - pinHeight) +
-    "px";
+    'px';
   pinImage.src = advertisement.author.avatar;
   pinImage.alt = advertisement.title;
 
