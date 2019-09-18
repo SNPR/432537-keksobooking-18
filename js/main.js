@@ -77,3 +77,36 @@ function generateAdvertisement(amount) {
 
   return advertisements;
 }
+
+var advertisements = generateAdvertisement(8);
+
+var map = document.querySelector(".map");
+map.classList.remove("map--faded");
+
+var pinTemplate = document.querySelector("#pin").content.querySelector(".map__pin");
+var pins = document.querySelector(".map__pins");
+var fragment = document.createDocumentFragment();
+
+function renderAdvertisement(advertisement) {
+  var pin = pinTemplate.cloneNode(true);
+  var pinImage = pin.querySelector("img");
+  var pinHeight = 70;
+  var pinWidth = 50;
+
+  pin.style =
+    "left: " +
+    (advertisement.location.x - pinWidth) +
+    "px; top: " +
+    (advertisement.location.y - pinHeight) +
+    "px";
+  pinImage.src = advertisement.author.avatar;
+  pinImage.alt = advertisement.title;
+
+  return pin;
+}
+
+for (var i = 0; i < advertisements.length; i++) {
+  fragment.appendChild(renderAdvertisement(advertisements[i]));
+}
+
+pins.appendChild(fragment);
