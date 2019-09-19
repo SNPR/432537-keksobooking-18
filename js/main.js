@@ -1,14 +1,5 @@
 'use strict';
 
-var AVATARS_AMOUNT = 8;
-var ADVERTISEMENTS_AMOUNT = 8;
-var PHOTOS_AMOUNT = 3;
-var MIN_ROOM_PRICE = 100;
-var MAX_ROOM_PRICE = 5000;
-var MIN_ROOMS_AMOUNT = 1;
-var MAX_ROOMS_AMOUNT = 5;
-var MIN_GUESTS_AMOUNT = 1;
-var MAX_GUESTS_AMOUNT = 10;
 var PIN_HEIGHT = 70;
 var PIN_WIDTH = 50;
 var MIN_X_POSITION = 0;
@@ -16,29 +7,36 @@ var MAX_X_POSITION = 1200;
 var MIN_Y_POSITION = 130;
 var MAX_Y_POSITION = 630;
 
-var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var types = ['palace', 'flat', 'house', 'bungalo'];
-var times = ['12:00', '13:00', '14:00'];
-
-function getAvatarsList() {
-  var avatarsArray = [];
-
-  for (var i = 1; i <= AVATARS_AMOUNT; i++) {
-    avatarsArray.push('img/avatars/user0' + i + '.png');
+var MOCK = {
+  avatars: [
+    'img/avatars/user01.png',
+    'img/avatars/user02.png',
+    'img/avatars/user03.png',
+    'img/avatars/user04.png',
+    'img/avatars/user05.png',
+    'img/avatars/user06.png',
+    'img/avatars/user07.png',
+    'img/avatars/user08.png'
+  ],
+  photos: [
+    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+  ],
+  features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+  times: ['12:00', '13:00', '14:00'],
+  rooms: {
+    min: 1,
+    max: 5,
+    types: ['palace', 'flat', 'house', 'bungalo'],
+    priceMin: 100,
+    priceMax: 5000
+  },
+  guests: {
+    min: 1,
+    max: 10
   }
-
-  return avatarsArray;
-}
-
-function getPhotosList() {
-  var photosArray = [];
-
-  for (var i = 1; i <= PHOTOS_AMOUNT; i++) {
-    photosArray.push('http://o0.github.io/assets/images/tokyo/hotel' + i + '.jpg');
-  }
-
-  return photosArray;
-}
+};
 
 function shuffleArray(array) {
   var shuffledArray = array.slice(0);
@@ -59,30 +57,26 @@ function generateRandomNumber(min, max) {
 
 function generateAdvertisement(amount) {
   var advertisements = [];
-  var avatars = shuffleArray(getAvatarsList());
 
   for (var i = 0; i < amount; i++) {
-    var randomAvatarIndex = generateRandomNumber(0, avatars.length);
-    var avatar = avatars[randomAvatarIndex];
-    avatars.splice(randomAvatarIndex, 1);
     var locationX = generateRandomNumber(MIN_X_POSITION, MAX_X_POSITION);
     var locationY = generateRandomNumber(MIN_Y_POSITION, MAX_Y_POSITION);
-    var photos = getPhotosList();
 
     advertisements.push({
       author: {
-        avatar: avatar,
+        avatar: MOCK.avatars[generateRandomNumber(0, MOCK.avatars.length - 1)],
         title: 'Супер крутое жильё',
         address: locationX + ', ' + locationY,
-        price: generateRandomNumber(MIN_ROOM_PRICE, MAX_ROOM_PRICE),
-        type: types[generateRandomNumber(0, types.length)],
-        rooms: generateRandomNumber(MIN_ROOMS_AMOUNT, MAX_ROOMS_AMOUNT),
-        guests: generateRandomNumber(MIN_GUESTS_AMOUNT, MAX_GUESTS_AMOUNT),
-        checkin: times[generateRandomNumber(0, times.length)],
-        checkout: times[generateRandomNumber(0, times.length)],
-        features: shuffleArray(features).slice(0, generateRandomNumber(1, features.length)),
+        price: generateRandomNumber(MOCK.rooms.priceMin, MOCK.rooms.priceMax),
+        type: MOCK.rooms.types[generateRandomNumber(0, MOCK.rooms.types.length - 1)],
+        rooms: generateRandomNumber(MOCK.rooms.min, MOCK.rooms.max),
+        guests: generateRandomNumber(MOCK.guests.min, MOCK.guests.max),
+        checkin: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
+        checkout: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
+        features: shuffleArray(MOCK.features).slice(0, generateRandomNumber(1, MOCK.features.length)
+        ),
         description: 'Самое популярное жильё в городе!',
-        photos: shuffleArray(photos).slice(0, generateRandomNumber(1, photos.length))
+        photos: shuffleArray(MOCK.photos).slice(0, generateRandomNumber(1, MOCK.photos.length))
       },
       location: {
         x: locationX,
@@ -94,7 +88,7 @@ function generateAdvertisement(amount) {
   return advertisements;
 }
 
-var advertisements = generateAdvertisement(ADVERTISEMENTS_AMOUNT);
+var advertisements = generateAdvertisement(8);
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
