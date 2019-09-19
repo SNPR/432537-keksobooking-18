@@ -61,7 +61,9 @@ function generateAdvertisement(amount) {
   for (var i = 0; i < amount; i++) {
     advertisements.push({
       author: {
-        avatar: MOCK.avatars[generateRandomNumber(0, MOCK.avatars.length - 1)],
+        avatar: MOCK.avatars[generateRandomNumber(0, MOCK.avatars.length - 1)]
+      },
+      offer: {
         title: 'Супер крутое жильё',
         price: generateRandomNumber(MOCK.rooms.priceMin, MOCK.rooms.priceMax),
         type: MOCK.rooms.types[generateRandomNumber(0, MOCK.rooms.types.length - 1)],
@@ -103,7 +105,7 @@ function renderAdvertisement(advertisement) {
     (advertisement.location.y - PIN_WIDTH) +
     'px';
   pinImage.src = advertisement.author.avatar;
-  pinImage.alt = advertisement.title;
+  pinImage.alt = advertisement.offer.title;
 
   return pin;
 }
