@@ -59,28 +59,23 @@ function generateAdvertisement(amount) {
   var advertisements = [];
 
   for (var i = 0; i < amount; i++) {
-    var locationX = generateRandomNumber(MIN_X_POSITION, MAX_X_POSITION);
-    var locationY = generateRandomNumber(MIN_Y_POSITION, MAX_Y_POSITION);
-
     advertisements.push({
       author: {
         avatar: MOCK.avatars[generateRandomNumber(0, MOCK.avatars.length - 1)],
         title: 'Супер крутое жильё',
-        address: locationX + ', ' + locationY,
         price: generateRandomNumber(MOCK.rooms.priceMin, MOCK.rooms.priceMax),
         type: MOCK.rooms.types[generateRandomNumber(0, MOCK.rooms.types.length - 1)],
         rooms: generateRandomNumber(MOCK.rooms.min, MOCK.rooms.max),
         guests: generateRandomNumber(MOCK.guests.min, MOCK.guests.max),
         checkin: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
         checkout: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
-        features: shuffleArray(MOCK.features).slice(0, generateRandomNumber(1, MOCK.features.length)
-        ),
+        features: shuffleArray(MOCK.features).slice(0, generateRandomNumber(1, MOCK.features.length)),
         description: 'Самое популярное жильё в городе!',
         photos: shuffleArray(MOCK.photos).slice(0, generateRandomNumber(1, MOCK.photos.length))
       },
       location: {
-        x: locationX,
-        y: locationY
+        x: generateRandomNumber(MIN_X_POSITION, MAX_X_POSITION),
+        y: generateRandomNumber(MIN_Y_POSITION, MAX_Y_POSITION)
       }
     });
   }
