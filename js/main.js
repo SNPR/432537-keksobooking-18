@@ -1,11 +1,9 @@
 'use strict';
 
-var PIN_HEIGHT = 70;
-var PIN_WIDTH = 50;
-var MIN_X_POSITION = 0;
-var MAX_X_POSITION = 1200;
+var MIN_X_POSITION = 50;
+var MAX_X_POSITION = 1100;
 var MIN_Y_POSITION = 130;
-var MAX_Y_POSITION = 630;
+var MAX_Y_POSITION = 420;
 
 var MOCK = {
   avatars: [
@@ -78,7 +76,10 @@ function generateAdvertisement(amount) {
         guests: generateRandomNumber(MOCK.guests.min, MOCK.guests.max),
         checkin: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
         checkout: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
-        features: shuffleArray(MOCK.features).slice(0, generateRandomNumber(1, MOCK.features.length)),
+        features: shuffleArray(MOCK.features).slice(
+          0,
+          generateRandomNumber(1, MOCK.features.length)
+        ),
         description: 'Самое популярное жильё в городе!',
         photos: shuffleArray(MOCK.photos).slice(0, generateRandomNumber(1, MOCK.photos.length))
       },
@@ -105,12 +106,7 @@ function renderAdvertisement(advertisement) {
   var pin = pinTemplate.cloneNode(true);
   var pinImage = pin.querySelector('img');
 
-  pin.style =
-    'left: ' +
-    (advertisement.location.x - PIN_HEIGHT) +
-    'px; top: ' +
-    (advertisement.location.y - PIN_WIDTH) +
-    'px';
+  pin.style = 'left: ' + advertisement.location.x + 'px; top: ' + advertisement.location.y + 'px';
   pinImage.src = advertisement.author.avatar;
   pinImage.alt = advertisement.offer.title;
 
@@ -133,7 +129,10 @@ card.querySelector('.popup__type').textContent = offerTypes[advertisements[0].of
 card.querySelector('.popup__text--capacity').textContent =
   advertisements[0].offer.rooms + ' комнаты для ' + advertisements[0].offer.guests + ' гостей';
 card.querySelector('.popup__text--time').textContent =
-  'Заезд после ' + advertisements[0].offer.checkin + ', выезд до ' + advertisements[0].offer.checkout;
+  'Заезд после ' +
+  advertisements[0].offer.checkin +
+  ', выезд до ' +
+  advertisements[0].offer.checkout;
 card.querySelector('.popup__features').textContent = advertisements[0].offer.features;
 card.querySelector('.popup__description').textContent = advertisements[0].offer.description;
 card.querySelector('.popup__photos img').src = advertisements[0].offer.photos[0];
