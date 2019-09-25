@@ -157,3 +157,16 @@ function toggleFieldSets(fieldsetsDisabled) {
 }
 
 toggleFieldSets(true);
+
+var mainPin = document.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+
+function activatePage() {
+  toggleFieldSets(false);
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+}
+
+mainPin.addEventListener('mousedown', function() {
+  activatePage();
+});
