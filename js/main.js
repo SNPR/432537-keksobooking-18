@@ -93,7 +93,7 @@ function generateAdvertisement(amount) {
 var advertisements = generateAdvertisement(8);
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+// map.classList.remove('map--faded');
 
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var pins = document.querySelector('.map__pins');
@@ -114,7 +114,7 @@ for (var i = 0; i < advertisements.length; i++) {
   fragment.appendChild(renderAdvertisement(advertisements[i]));
 }
 
-pins.appendChild(fragment);
+// pins.appendChild(fragment);
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
@@ -148,4 +148,4 @@ function renderAdvertisementCard(advertisement) {
   return card;
 }
 
-map.appendChild(renderAdvertisementCard(advertisements[0]));
+// map.appendChild(renderAdvertisementCard(advertisements[0]));
