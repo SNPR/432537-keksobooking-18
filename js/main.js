@@ -134,7 +134,7 @@ function renderAdvertisementCard(advertisement) {
   featuresPopup.textContent = '';
 
   var featureFragment = document.createDocumentFragment();
-  advertisement.offer.features.forEach(function (featureName) {
+  advertisement.offer.features.forEach(function(featureName) {
     var feature = document.createElement('li');
     feature.classList.add('popup__feature', 'popup__feature--' + featureName);
     featureFragment.appendChild(feature);
@@ -149,3 +149,11 @@ function renderAdvertisementCard(advertisement) {
 }
 
 // map.appendChild(renderAdvertisementCard(advertisements[0]));
+
+function toggleFieldSets(fieldsetsDisabled) {
+  document.querySelectorAll('fieldset').forEach(function(fieldset) {
+    fieldset.disabled = fieldsetsDisabled;
+  });
+}
+
+toggleFieldSets(true);
