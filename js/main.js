@@ -182,3 +182,22 @@ mainPin.addEventListener('keydown', function(evt) {
     activatePage();
   }
 });
+
+adForm.addEventListener('input', function(evt) {
+  var target = evt.target;
+  if (target.id === 'title') {
+    if (target.value.length < 30) {
+      target.setCustomValidity('Заголовок должен содержать не менее 30 символов');
+    } else {
+      target.setCustomValidity('');
+    }
+  } else if (target.id === 'price') {
+    var housingType = document.querySelector('#type');
+    if (target.value > 1000000) {
+      target.setCustomValidity('Максимальное значение цены за ночь 1 000 000 рублей');
+    } else {
+      target.setCustomValidity('');
+    }
+  }
+  console.log(target);
+});
