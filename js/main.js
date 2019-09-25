@@ -183,6 +183,11 @@ mainPin.addEventListener('keydown', function(evt) {
   }
 });
 
+var housingType = document.querySelector('#type');
+housingType.addEventListener('change', function() {
+  adForm.querySelector('#price').value = '';
+});
+
 adForm.addEventListener('input', function(evt) {
   var target = evt.target;
   if (target.id === 'title') {
@@ -192,8 +197,13 @@ adForm.addEventListener('input', function(evt) {
       target.setCustomValidity('');
     }
   } else if (target.id === 'price') {
-    var housingType = document.querySelector('#type');
-    if (target.value > 1000000) {
+    if (target.value < 10000 && housingType.value === 'palace') {
+      target.setCustomValidity('Минимальное значение цены за ночь для данного типа жилья 10 000 рублей');
+    } else if (target.value < 5000 && housingType.value === 'house') {
+      target.setCustomValidity('Минимальное значение цены за ночь для данного типа жилья 5 000 рублей');
+    } else if (target.value < 1000 && housingType.value === 'flat') {
+      target.setCustomValidity('Минимальное значение цены за ночь для данного типа жилья 1 000 рублей');
+    } else if (target.value > 1000000) {
       target.setCustomValidity('Максимальное значение цены за ночь 1 000 000 рублей');
     } else {
       target.setCustomValidity('');
