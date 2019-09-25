@@ -43,6 +43,12 @@ var offerTypes = {
   bungalo: 'Бунгало'
 };
 
+var KeyCodes = {
+  enter: 13,
+  escape: 27,
+  space: 32
+};
+
 function shuffleArray(array) {
   var shuffledArray = array.slice(0);
 
@@ -169,4 +175,10 @@ function activatePage() {
 
 mainPin.addEventListener('mousedown', function() {
   activatePage();
+});
+
+mainPin.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === KeyCodes.enter) {
+    activatePage();
+  }
 });
