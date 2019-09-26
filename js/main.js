@@ -5,6 +5,9 @@ var MAX_X_POSITION = 1100;
 var MIN_Y_POSITION = 130;
 var MAX_Y_POSITION = 420;
 
+var MAP_PIN_HEIGHT = 80;
+var MAP_PIN_WIDTH = 40;
+
 var MOCK = {
   avatars: [
     'img/avatars/user01.png',
@@ -173,8 +176,17 @@ function activatePage() {
   adForm.classList.remove('ad-form--disabled');
 }
 
-mainPin.addEventListener('mousedown', function() {
+var addressInput = document.querySelector('#address');
+
+function setAddress(x, y) {
+  addressInput.value = x + MAP_PIN_WIDTH + ', ' + (y + MAP_PIN_HEIGHT);
+}
+
+mainPin.addEventListener('mousedown', function(evt) {
+  var target = evt.currentTarget;
+
   activatePage();
+  setAddress(parseInt(target.style.left, 10), parseInt(target.style.top, 10));
 });
 
 mainPin.addEventListener('keydown', function(evt) {
@@ -220,7 +232,6 @@ adForm.addEventListener('input', function(evt) {
       target.setCustomValidity('');
     }
   }
-  console.log(target);
 });
 
 var roomsAmountSelect = document.querySelector('#room_number');
@@ -228,7 +239,6 @@ var seatingCapacitySelect = document.querySelector('#capacity');
 
 roomsAmountSelect.addEventListener('change', function(evt) {
   var target = evt.target;
-
   var seatingCapacityOptions = seatingCapacitySelect.querySelectorAll('option');
 
   if (target.value === '1') {
