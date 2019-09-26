@@ -188,6 +188,17 @@ housingType.addEventListener('change', function() {
   adForm.querySelector('#price').value = '';
 });
 
+var checkinTimeSelect = document.querySelector('#timein');
+var checkoutTimeSelect = document.querySelector('#timeout');
+
+checkinTimeSelect.addEventListener('change', function() {
+  checkoutTimeSelect.value = checkinTimeSelect.value;
+});
+
+checkoutTimeSelect.addEventListener('change', function() {
+  checkinTimeSelect.value = checkoutTimeSelect.value;
+});
+
 adForm.addEventListener('input', function(evt) {
   var target = evt.target;
   if (target.id === 'title') {
