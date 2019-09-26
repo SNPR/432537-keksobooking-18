@@ -222,3 +222,51 @@ adForm.addEventListener('input', function(evt) {
   }
   console.log(target);
 });
+
+var roomsAmountSelect = document.querySelector('#room_number');
+var seatingCapacitySelect = document.querySelector('#capacity');
+
+roomsAmountSelect.addEventListener('change', function(evt) {
+  var target = evt.target;
+
+  var seatingCapacityOptions = seatingCapacitySelect.querySelectorAll('option');
+
+  if (target.value === '1') {
+    seatingCapacityOptions.forEach(function(option) {
+      if (option.value !== '1') {
+        option.disabled = true;
+        option.selected = false;
+      } else {
+        option.disabled = false;
+      }
+    });
+  } else if (target.value === '2') {
+    seatingCapacityOptions.forEach(function(option) {
+      if (option.value === '2' || option.value === '1') {
+        option.disabled = false;
+      } else {
+        option.selected = false;
+        option.disabled = true;
+      }
+    });
+  } else if (target.value === '3') {
+    seatingCapacityOptions.forEach(function(option) {
+      if (option.value === '3' || option.value === '2' || option.value === '1') {
+        option.disabled = false;
+      } else {
+        option.selected = false;
+        option.disabled = true;
+      }
+    });
+  } else if (target.value === '100') {
+    seatingCapacityOptions.forEach(function(option) {
+      if (option.value !== '0') {
+        option.disabled = true;
+        option.selected = false;
+      } else {
+        option.disabled = false;
+        option.selected = true;
+      }
+    });
+  }
+});
