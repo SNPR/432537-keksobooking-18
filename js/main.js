@@ -242,46 +242,32 @@ adForm.addEventListener('input', function(evt) {
 var roomsAmountSelect = document.querySelector('#room_number');
 var seatingCapacitySelect = document.querySelector('#capacity');
 
-roomsAmountSelect.addEventListener('change', function(evt) {
-  var target = evt.target;
+var roomValues = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0]
+};
+
+function checkRooms(peopleAmount) {
   var seatingCapacityOptions = seatingCapacitySelect.querySelectorAll('option');
 
-  if (target.value === '1') {
+  seatingCapacityOptions.forEach(function(option) {
+    option.disabled = true;
+  });
+
+  roomValues[peopleAmount].forEach(function(seatsAmount) {
     seatingCapacityOptions.forEach(function(option) {
-      if (option.value !== '1') {
-        option.disabled = true;
-        option.selected = false;
-      } else {
-        option.disabled = false;
-      }
-    });
-  } else if (target.value === '2') {
-    seatingCapacityOptions.forEach(function(option) {
-      if (option.value === '2' || option.value === '1') {
-        option.disabled = false;
-      } else {
-        option.selected = false;
-        option.disabled = true;
-      }
-    });
-  } else if (target.value === '3') {
-    seatingCapacityOptions.forEach(function(option) {
-      if (option.value === '3' || option.value === '2' || option.value === '1') {
-        option.disabled = false;
-      } else {
-        option.selected = false;
-        option.disabled = true;
-      }
-    });
-  } else if (target.value === '100') {
-    seatingCapacityOptions.forEach(function(option) {
-      if (option.value !== '0') {
-        option.disabled = true;
-        option.selected = false;
-      } else {
+      if (Number(option.value) === seatsAmount) {
         option.disabled = false;
         option.selected = true;
       }
     });
-  }
+  });
+}
+
+roomsAmountSelect.addEventListener('change', function(evt) {
+  var target = evt.target;
+
+  checkRooms(target.value);
 });
