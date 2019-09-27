@@ -207,6 +207,7 @@ housingType.addEventListener('change', function(evt) {
   var priceInput = adForm.querySelector('#price');
   priceInput.value = '';
   priceInput.placeholder = housingTypeToMinPrice[evt.target.value];
+  priceInput.setAttribute('min', housingTypeToMinPrice[evt.target.value]);
 });
 
 var checkinTimeSelect = document.querySelector('#timein');
