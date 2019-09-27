@@ -195,9 +195,18 @@ mainPin.addEventListener('keydown', function(evt) {
   }
 });
 
+var housingTypeToMinPrice = {
+  flat: 1000,
+  bungalo: 0,
+  house: 5000,
+  palace: 10000
+};
+
 var housingType = document.querySelector('#type');
-housingType.addEventListener('change', function() {
-  adForm.querySelector('#price').value = '';
+housingType.addEventListener('change', function(evt) {
+  var priceInput = adForm.querySelector('#price');
+  priceInput.value = '';
+  priceInput.placeholder = housingTypeToMinPrice[evt.target.value];
 });
 
 var checkinTimeSelect = document.querySelector('#timein');
