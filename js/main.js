@@ -211,8 +211,7 @@ checkoutTimeSelect.addEventListener('change', function() {
   checkinTimeSelect.value = checkoutTimeSelect.value;
 });
 
-adForm.addEventListener('input', function(evt) {
-  var target = evt.target;
+function validateAdFormInputs(target) {
   switch (target.id) {
     case 'title':
       if (target.value.length < 30) {
@@ -237,6 +236,11 @@ adForm.addEventListener('input', function(evt) {
       }
       break;
   }
+}
+
+adForm.addEventListener('input', function(evt) {
+  var target = evt.target;
+  validateAdFormInputs(target);
 });
 
 var roomsAmountSelect = document.querySelector('#room_number');
