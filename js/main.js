@@ -231,20 +231,11 @@ function validateAdFormInputs(target) {
       }
       break;
     case 'price':
-      if (target.value === '') {
-        target.setCustomValidity('Пожалуйста укажите цену за ночь');
-      } else if (target.value < 10000 && housingType.value === 'palace') {
-        target.setCustomValidity('Минимальное значение цены за ночь для данного типа жилья 10 000 рублей');
-      } else if (target.value < 5000 && housingType.value === 'house') {
-        target.setCustomValidity('Минимальное значение цены за ночь для данного типа жилья 5 000 рублей');
-      } else if (target.value < 1000 && target.value !== '' && housingType.value === 'flat') {
-        target.setCustomValidity('Минимальное значение цены за ночь для данного типа жилья 1 000 рублей');
-      } else if (target.value > 1000000) {
-        target.setCustomValidity('Максимальное значение цены за ночь 1 000 000 рублей');
-      } else {
-        target.setCustomValidity('');
+      if (housingTypeToMinPrice[target.value] < target.min) {
+        target.setCustomValidity(
+          'Минимальное значение цены за ночь для данного типа жилья ' + target.min + ' рублей'
+        );
       }
-      break;
   }
 }
 
