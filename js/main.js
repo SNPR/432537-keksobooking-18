@@ -143,7 +143,7 @@ function renderAdvertisementCard(advertisement) {
   featuresPopup.textContent = '';
 
   var featureFragment = document.createDocumentFragment();
-  advertisement.offer.features.forEach(function(featureName) {
+  advertisement.offer.features.forEach(function (featureName) {
     var feature = document.createElement('li');
     feature.classList.add('popup__feature', 'popup__feature--' + featureName);
     featureFragment.appendChild(feature);
@@ -160,7 +160,7 @@ function renderAdvertisementCard(advertisement) {
 // map.appendChild(renderAdvertisementCard(advertisements[0]));
 
 function toggleFieldSets(fieldsetsDisabled) {
-  document.querySelectorAll('fieldset').forEach(function(fieldset) {
+  document.querySelectorAll('fieldset').forEach(function (fieldset) {
     fieldset.disabled = fieldsetsDisabled;
   });
 }
@@ -182,14 +182,14 @@ function setAddress(x, y) {
   addressInput.value = x + MAP_PIN_WIDTH + ', ' + (y + MAP_PIN_HEIGHT);
 }
 
-mainPin.addEventListener('mousedown', function(evt) {
+mainPin.addEventListener('mousedown', function (evt) {
   var target = evt.currentTarget;
 
   activatePage();
   setAddress(parseInt(target.style.left, 10), parseInt(target.style.top, 10));
 });
 
-mainPin.addEventListener('keydown', function(evt) {
+mainPin.addEventListener('keydown', function (evt) {
   if (evt.keyCode === KeyCodes.enter) {
     activatePage();
   }
@@ -203,7 +203,7 @@ var housingTypeToMinPrice = {
 };
 
 var housingType = document.querySelector('#type');
-housingType.addEventListener('change', function(evt) {
+housingType.addEventListener('change', function (evt) {
   var priceInput = adForm.querySelector('#price');
   priceInput.value = '';
   priceInput.placeholder = housingTypeToMinPrice[evt.target.value];
@@ -213,11 +213,11 @@ housingType.addEventListener('change', function(evt) {
 var checkinTimeSelect = document.querySelector('#timein');
 var checkoutTimeSelect = document.querySelector('#timeout');
 
-checkinTimeSelect.addEventListener('change', function() {
+checkinTimeSelect.addEventListener('change', function () {
   checkoutTimeSelect.value = checkinTimeSelect.value;
 });
 
-checkoutTimeSelect.addEventListener('change', function() {
+checkoutTimeSelect.addEventListener('change', function () {
   checkinTimeSelect.value = checkoutTimeSelect.value;
 });
 
@@ -233,13 +233,13 @@ function validateAdFormInputs(target) {
     case 'price':
       if (housingTypeToMinPrice[target.value] < target.min) {
         target.setCustomValidity(
-          'Минимальное значение цены за ночь для данного типа жилья ' + target.min + ' рублей'
+            'Минимальное значение цены за ночь для данного типа жилья ' + target.min + ' рублей'
         );
       }
   }
 }
 
-adForm.addEventListener('input', function(evt) {
+adForm.addEventListener('input', function (evt) {
   var target = evt.target;
   validateAdFormInputs(target);
 });
@@ -257,12 +257,12 @@ var roomValues = {
 function checkRooms(peopleAmount) {
   var seatingCapacityOptions = seatingCapacitySelect.querySelectorAll('option');
 
-  seatingCapacityOptions.forEach(function(option) {
+  seatingCapacityOptions.forEach(function (option) {
     option.disabled = true;
   });
 
-  roomValues[peopleAmount].forEach(function(seatsAmount) {
-    seatingCapacityOptions.forEach(function(option) {
+  roomValues[peopleAmount].forEach(function (seatsAmount) {
+    seatingCapacityOptions.forEach(function (option) {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
         option.selected = true;
@@ -271,7 +271,7 @@ function checkRooms(peopleAmount) {
   });
 }
 
-roomsAmountSelect.addEventListener('change', function(evt) {
+roomsAmountSelect.addEventListener('change', function (evt) {
   var target = evt.target;
 
   checkRooms(target.value);
