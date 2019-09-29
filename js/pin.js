@@ -1,9 +1,9 @@
 'use strict';
 
-(function() {
+(function () {
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  window.renderPin = function(advertisement) {
+  window.renderPin = function (advertisement) {
     var pin = pinTemplate.cloneNode(true);
     var pinImage = pin.querySelector('img');
 

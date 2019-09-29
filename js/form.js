@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var adForm = document.querySelector('.ad-form');
 
   var housingTypeToMinPrice = {
@@ -11,7 +11,7 @@
   };
 
   var housingType = document.querySelector('#type');
-  housingType.addEventListener('change', function(evt) {
+  housingType.addEventListener('change', function (evt) {
     var priceInput = adForm.querySelector('#price');
     priceInput.value = '';
     priceInput.placeholder = housingTypeToMinPrice[evt.target.value];
@@ -21,11 +21,11 @@
   var checkinTimeSelect = document.querySelector('#timein');
   var checkoutTimeSelect = document.querySelector('#timeout');
 
-  checkinTimeSelect.addEventListener('change', function() {
+  checkinTimeSelect.addEventListener('change', function () {
     checkoutTimeSelect.value = checkinTimeSelect.value;
   });
 
-  checkoutTimeSelect.addEventListener('change', function() {
+  checkoutTimeSelect.addEventListener('change', function () {
     checkinTimeSelect.value = checkoutTimeSelect.value;
   });
 
@@ -41,13 +41,13 @@
       case 'price':
         if (housingTypeToMinPrice[target.value] < target.min) {
           target.setCustomValidity(
-            'Минимальное значение цены за ночь для данного типа жилья ' + target.min + ' рублей'
+              'Минимальное значение цены за ночь для данного типа жилья ' + target.min + ' рублей'
           );
         }
     }
   }
 
-  adForm.addEventListener('input', function(evt) {
+  adForm.addEventListener('input', function (evt) {
     var target = evt.target;
     validateAdFormInputs(target);
   });
@@ -65,12 +65,12 @@
   function checkRooms(peopleAmount) {
     var seatingCapacityOptions = seatingCapacitySelect.querySelectorAll('option');
 
-    seatingCapacityOptions.forEach(function(option) {
+    seatingCapacityOptions.forEach(function (option) {
       option.disabled = true;
     });
 
-    roomValues[peopleAmount].forEach(function(seatsAmount) {
-      seatingCapacityOptions.forEach(function(option) {
+    roomValues[peopleAmount].forEach(function (seatsAmount) {
+      seatingCapacityOptions.forEach(function (option) {
         if (Number(option.value) === seatsAmount) {
           option.disabled = false;
           option.selected = true;
@@ -79,9 +79,7 @@
     });
   }
 
-  roomsAmountSelect.addEventListener('change', function(evt) {
-    var target = evt.target;
-
-    checkRooms(target.value);
+  roomsAmountSelect.addEventListener('change', function (evt) {
+    checkRooms(evt.target.value);
   });
 })();

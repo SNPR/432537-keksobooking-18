@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var MIN_X_POSITION = 50;
   var MAX_X_POSITION = 1100;
   var MIN_Y_POSITION = 130;
@@ -37,7 +37,7 @@
     }
   };
 
-  window.generateAdvertisement = function(amount) {
+  window.generateAdvertisement = function (amount) {
     var advertisements = [];
 
     for (var i = 0; i < amount; i++) {

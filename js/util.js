@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var KeyCodes = {
     enter: 13,
     escape: 27,

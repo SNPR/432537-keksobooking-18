@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var offerTypes = {
     palace: 'Дворец',
     flat: 'Квартира',
@@ -9,7 +9,7 @@
   };
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  window.renderAdvertisementCard = function(advertisement) {
+  window.renderAdvertisementCard = function (advertisement) {
     var card = cardTemplate.cloneNode(true);
 
     card.querySelector('.popup__title').textContent = advertisement.offer.title;
@@ -25,7 +25,7 @@
     featuresPopup.textContent = '';
 
     var featureFragment = document.createDocumentFragment();
-    advertisement.offer.features.forEach(function(featureName) {
+    advertisement.offer.features.forEach(function (featureName) {
       var feature = document.createElement('li');
       feature.classList.add('popup__feature', 'popup__feature--' + featureName);
       featureFragment.appendChild(feature);

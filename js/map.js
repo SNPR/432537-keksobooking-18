@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var map = document.querySelector('.map');
   var pinsConatiner = document.querySelector('.map__pins');
   var adForm = document.querySelector('.ad-form');
@@ -16,21 +16,21 @@
 
   var mainPin = document.querySelector('.map__pin--main');
 
-  mainPin.addEventListener('mousedown', function(evt) {
+  mainPin.addEventListener('mousedown', function (evt) {
     var target = evt.currentTarget;
 
     activatePage();
     setAddress(parseInt(target.style.left, 10), parseInt(target.style.top, 10));
   });
 
-  mainPin.addEventListener('keydown', function(evt) {
+  mainPin.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.util.KeyCodes.enter) {
       activatePage();
     }
   });
 
   function toggleFieldSets(fieldsetsDisabled) {
-    document.querySelectorAll('fieldset').forEach(function(fieldset) {
+    document.querySelectorAll('fieldset').forEach(function (fieldset) {
       fieldset.disabled = fieldsetsDisabled;
     });
   }
@@ -45,13 +45,13 @@
   function closeAdvertisementOnCloseClick() {
     var adCloseButton = document.querySelector('.popup__close');
 
-    adCloseButton.addEventListener('click', function() {
+    adCloseButton.addEventListener('click', function () {
       map.removeChild(map.querySelector('.map__card'));
     });
   }
 
   function onEscPress() {
-    document.addEventListener('keydown', function(evt) {
+    document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === window.util.KeyCodes.escape && document.querySelector('.popup__close')) {
         map.removeChild(map.querySelector('.map__card'));
       }
@@ -61,8 +61,8 @@
   function renderAdvertisementOnPinClick() {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
-    pins.forEach(function(pin, index) {
-      pin.addEventListener('click', function(evt) {
+    pins.forEach(function (pin, index) {
+      pin.addEventListener('click', function (evt) {
         var advertisementCard = map.querySelector('.map__card');
 
         if (advertisementCard) {
