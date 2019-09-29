@@ -183,7 +183,7 @@ function renderAdvertisementOnPinClick() {
 function onAdvertisementOnCloseClick() {
   var adCloseButton = document.querySelector('.popup__close');
 
-  adCloseButton.addEventListener('click', function (evt) {
+  adCloseButton.addEventListener('click', function () {
     map.removeChild(map.querySelector('.map__card'));
   });
 }
