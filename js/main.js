@@ -170,8 +170,21 @@ function renderAdvertisementOnPinClick() {
 
   pins.forEach(function (pin, index) {
     pin.addEventListener('click', function () {
+      var advertisementCard = map.querySelector('.map__card');
+      if (advertisementCard) {
+        map.removeChild(advertisementCard);
+      }
       map.appendChild(renderAdvertisementCard(advertisements[index]));
+      onAdvertisementOnCloseClick();
     });
+  });
+}
+
+function onAdvertisementOnCloseClick() {
+  var adCloseButton = document.querySelector('.popup__close');
+
+  adCloseButton.addEventListener('click', function (evt) {
+    map.removeChild(map.querySelector('.map__card'));
   });
 }
 
@@ -182,6 +195,7 @@ function activatePage() {
   pinsConatiner.appendChild(fragment);
   map.appendChild(renderAdvertisementCard(advertisements[0]));
   renderAdvertisementOnPinClick();
+  onAdvertisementOnCloseClick();
 }
 
 var addressInput = document.querySelector('#address');
