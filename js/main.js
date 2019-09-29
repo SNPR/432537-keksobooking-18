@@ -175,13 +175,13 @@ function renderAdvertisementOnPinClick() {
         map.removeChild(advertisementCard);
       }
       map.appendChild(renderAdvertisementCard(advertisements[index]));
-      onAdvertisementOnCloseClick();
+      closeAdvertisementOnCloseClick();
       setAddress(parseInt(evt.currentTarget.style.left, 10), parseInt(evt.currentTarget.style.top, 10));
     });
   });
 }
 
-function onAdvertisementOnCloseClick() {
+function closeAdvertisementOnCloseClick() {
   var adCloseButton = document.querySelector('.popup__close');
 
   adCloseButton.addEventListener('click', function () {
@@ -204,7 +204,7 @@ function activatePage() {
   pinsConatiner.appendChild(fragment);
   map.appendChild(renderAdvertisementCard(advertisements[0]));
   renderAdvertisementOnPinClick();
-  onAdvertisementOnCloseClick();
+  closeAdvertisementOnCloseClick();
   onEscPress();
 }
 
