@@ -188,6 +188,14 @@ function onAdvertisementOnCloseClick() {
   });
 }
 
+function onEscPress() {
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === KeyCodes.escape && document.querySelector('.popup__close')) {
+      map.removeChild(map.querySelector('.map__card'));
+    }
+  });
+}
+
 function activatePage() {
   toggleFieldSets(false);
   map.classList.remove('map--faded');
@@ -196,6 +204,7 @@ function activatePage() {
   map.appendChild(renderAdvertisementCard(advertisements[0]));
   renderAdvertisementOnPinClick();
   onAdvertisementOnCloseClick();
+  onEscPress();
 }
 
 var addressInput = document.querySelector('#address');
