@@ -46,46 +46,33 @@ var offerTypes = {
   bungalo: 'Бунгало'
 };
 
-function shuffleArray(array) {
-  var shuffledArray = array.slice(0);
-
-  for (var i = shuffledArray.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = shuffledArray[i];
-    shuffledArray[i] = shuffledArray[j];
-    shuffledArray[j] = temp;
-  }
-
-  return shuffledArray;
-}
-
-function generateRandomNumber(min, max) {
-  return Math.floor(Math.random() * max) + min;
-}
-
 function generateAdvertisement(amount) {
   var advertisements = [];
 
   for (var i = 0; i < amount; i++) {
     advertisements.push({
       author: {
-        avatar: MOCK.avatars[generateRandomNumber(0, MOCK.avatars.length - 1)]
+        avatar: MOCK.avatars[window.util.generateRandomNumber(0, MOCK.avatars.length - 1)]
       },
       offer: {
         title: 'Супер крутое жильё',
-        price: generateRandomNumber(MOCK.rooms.priceMin, MOCK.rooms.priceMax),
-        type: MOCK.rooms.types[generateRandomNumber(0, MOCK.rooms.types.length - 1)],
-        rooms: generateRandomNumber(MOCK.rooms.min, MOCK.rooms.max),
-        guests: generateRandomNumber(MOCK.guests.min, MOCK.guests.max),
-        checkin: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
-        checkout: MOCK.times[generateRandomNumber(0, MOCK.times.length - 1)],
-        features: shuffleArray(MOCK.features).slice(0, generateRandomNumber(1, MOCK.features.length)),
+        price: window.util.generateRandomNumber(MOCK.rooms.priceMin, MOCK.rooms.priceMax),
+        type: MOCK.rooms.types[window.util.generateRandomNumber(0, MOCK.rooms.types.length - 1)],
+        rooms: window.util.generateRandomNumber(MOCK.rooms.min, MOCK.rooms.max),
+        guests: window.util.generateRandomNumber(MOCK.guests.min, MOCK.guests.max),
+        checkin: MOCK.times[window.util.generateRandomNumber(0, MOCK.times.length - 1)],
+        checkout: MOCK.times[window.util.generateRandomNumber(0, MOCK.times.length - 1)],
+        features: window.util
+          .shuffleArray(MOCK.features)
+          .slice(0, window.util.generateRandomNumber(1, MOCK.features.length)),
         description: 'Самое популярное жильё в городе!',
-        photos: shuffleArray(MOCK.photos).slice(0, generateRandomNumber(1, MOCK.photos.length))
+        photos: window.util
+          .shuffleArray(MOCK.photos)
+          .slice(0, window.util.generateRandomNumber(1, MOCK.photos.length))
       },
       location: {
-        x: generateRandomNumber(MIN_X_POSITION, MAX_X_POSITION),
-        y: generateRandomNumber(MIN_Y_POSITION, MAX_Y_POSITION)
+        x: window.util.generateRandomNumber(MIN_X_POSITION, MAX_X_POSITION),
+        y: window.util.generateRandomNumber(MIN_Y_POSITION, MAX_Y_POSITION)
       }
     });
   }
