@@ -165,12 +165,23 @@ toggleFieldSets(true);
 var mainPin = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 
+function renderAdvertisementOnPinClick() {
+  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+  pins.forEach(function (pin, index) {
+    pin.addEventListener('click', function () {
+      map.appendChild(renderAdvertisementCard(advertisements[index]));
+    });
+  });
+}
+
 function activatePage() {
   toggleFieldSets(false);
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   pinsConatiner.appendChild(fragment);
   map.appendChild(renderAdvertisementCard(advertisements[0]));
+  renderAdvertisementOnPinClick();
 }
 
 var addressInput = document.querySelector('#address');
