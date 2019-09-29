@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  window.MOCK = {
+  var MOCK = {
     avatars: [
       'img/avatars/user01.png',
       'img/avatars/user02.png',
@@ -30,5 +30,39 @@
       min: 1,
       max: 10
     }
+  };
+
+  window.generateAdvertisement = function(amount) {
+    var advertisements = [];
+
+    for (var i = 0; i < amount; i++) {
+      advertisements.push({
+        author: {
+          avatar: MOCK.avatars[window.util.generateRandomNumber(0, MOCK.avatars.length - 1)]
+        },
+        offer: {
+          title: 'Супер крутое жильё',
+          price: window.util.generateRandomNumber(MOCK.rooms.priceMin, MOCK.rooms.priceMax),
+          type: MOCK.rooms.types[window.util.generateRandomNumber(0, MOCK.rooms.types.length - 1)],
+          rooms: window.util.generateRandomNumber(MOCK.rooms.min, MOCK.rooms.max),
+          guests: window.util.generateRandomNumber(MOCK.guests.min, MOCK.guests.max),
+          checkin: MOCK.times[window.util.generateRandomNumber(0, MOCK.times.length - 1)],
+          checkout: MOCK.times[window.util.generateRandomNumber(0, MOCK.times.length - 1)],
+          features: window.util
+            .shuffleArray(MOCK.features)
+            .slice(0, window.util.generateRandomNumber(1, MOCK.features.length)),
+          description: 'Самое популярное жильё в городе!',
+          photos: window.util
+            .shuffleArray(MOCK.photos)
+            .slice(0, window.util.generateRandomNumber(1, MOCK.photos.length))
+        },
+        location: {
+          x: window.util.generateRandomNumber(MIN_X_POSITION, MAX_X_POSITION),
+          y: window.util.generateRandomNumber(MIN_Y_POSITION, MAX_Y_POSITION)
+        }
+      });
+    }
+
+    return advertisements;
   };
 })();
