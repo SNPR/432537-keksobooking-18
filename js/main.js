@@ -169,13 +169,14 @@ function renderAdvertisementOnPinClick() {
   var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
   pins.forEach(function (pin, index) {
-    pin.addEventListener('click', function () {
+    pin.addEventListener('click', function (evt) {
       var advertisementCard = map.querySelector('.map__card');
       if (advertisementCard) {
         map.removeChild(advertisementCard);
       }
       map.appendChild(renderAdvertisementCard(advertisements[index]));
       onAdvertisementOnCloseClick();
+      setAddress(parseInt(evt.currentTarget.style.left, 10), parseInt(evt.currentTarget.style.top, 10));
     });
   });
 }
