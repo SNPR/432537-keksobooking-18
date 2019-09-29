@@ -1,19 +1,7 @@
 'use strict';
 
-var MIN_X_POSITION = 50;
-var MAX_X_POSITION = 1100;
-var MIN_Y_POSITION = 130;
-var MAX_Y_POSITION = 420;
-
 var MAP_PIN_HEIGHT = 80;
 var MAP_PIN_WIDTH = 40;
-
-var offerTypes = {
-  palace: 'Дворец',
-  flat: 'Квартира',
-  house: 'Дом',
-  bungalo: 'Бунгало'
-};
 
 var advertisements = window.generateAdvertisement(8);
 
@@ -21,7 +9,6 @@ var map = document.querySelector('.map');
 
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var pinsConatiner = document.querySelector('.map__pins');
-var fragment = document.createDocumentFragment();
 
 function renderAdvertisement(advertisement) {
   var pin = pinTemplate.cloneNode(true);
@@ -32,42 +19,6 @@ function renderAdvertisement(advertisement) {
   pinImage.alt = advertisement.offer.title;
 
   return pin;
-}
-
-for (var i = 0; i < advertisements.length; i++) {
-  fragment.appendChild(renderAdvertisement(advertisements[i]));
-}
-
-var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-
-function renderAdvertisementCard(advertisement) {
-  var card = cardTemplate.cloneNode(true);
-
-  card.querySelector('.popup__title').textContent = advertisement.offer.title;
-  card.querySelector('.popup__text--address').textContent = advertisement.offer.address;
-  card.querySelector('.popup__text--price').textContent = advertisement.offer.price + '₽/ночь';
-  card.querySelector('.popup__type').textContent = offerTypes[advertisement.offer.type];
-  card.querySelector('.popup__text--capacity').textContent =
-    advertisement.offer.rooms + ' комнаты для ' + advertisement.offer.guests + ' гостей';
-  card.querySelector('.popup__text--time').textContent =
-    'Заезд после ' + advertisement.offer.checkin + ', выезд до ' + advertisement.offer.checkout;
-
-  var featuresPopup = card.querySelector('.popup__features');
-  featuresPopup.textContent = '';
-
-  var featureFragment = document.createDocumentFragment();
-  advertisement.offer.features.forEach(function(featureName) {
-    var feature = document.createElement('li');
-    feature.classList.add('popup__feature', 'popup__feature--' + featureName);
-    featureFragment.appendChild(feature);
-  });
-  featuresPopup.appendChild(featureFragment);
-
-  card.querySelector('.popup__description').textContent = advertisement.offer.description;
-  card.querySelector('.popup__photos img').src = advertisement.offer.photos[0];
-  card.querySelector('.popup__avatar').src = advertisement.author.avatar;
-
-  return card;
 }
 
 function toggleFieldSets(fieldsetsDisabled) {
@@ -90,11 +41,16 @@ function renderAdvertisementOnPinClick() {
       if (advertisementCard) {
         map.removeChild(advertisementCard);
       }
-      map.appendChild(renderAdvertisementCard(advertisements[index]));
+      map.appendChild(window.renderAdvertisementCard(advertisements[index]));
       closeAdvertisementOnCloseClick();
       setAddress(parseInt(evt.currentTarget.style.left, 10), parseInt(evt.currentTarget.style.top, 10));
     });
   });
+}
+
+var fragment = document.createDocumentFragment();
+for (var i = 0; i < advertisements.length; i++) {
+  fragment.appendChild(renderAdvertisement(advertisements[i]));
 }
 
 function closeAdvertisementOnCloseClick() {

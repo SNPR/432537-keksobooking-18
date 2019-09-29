@@ -1,6 +1,11 @@
 'use strict';
 
 (function() {
+  var MIN_X_POSITION = 50;
+  var MAX_X_POSITION = 1100;
+  var MIN_Y_POSITION = 130;
+  var MAX_Y_POSITION = 420;
+
   var MOCK = {
     avatars: [
       'img/avatars/user01.png',
