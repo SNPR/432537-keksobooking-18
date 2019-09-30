@@ -37,7 +37,7 @@
     }
   };
 
-  window.generateAdvertisement = function (amount) {
+  function generateAdvertisement(amount) {
     var advertisements = [];
 
     for (var i = 0; i < amount; i++) {
@@ -69,5 +69,7 @@
     }
 
     return advertisements;
-  };
+  }
+
+  window.advertisements = generateAdvertisement(8);
 })();
