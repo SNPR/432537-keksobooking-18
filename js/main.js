@@ -115,18 +115,12 @@ function renderPin(advertisement, index) {
   pinImage.src = advertisement.author.avatar;
   pinImage.alt = advertisement.offer.title;
 
-  pin.addEventListener('click', function (evt) {
+  pin.addEventListener('click', function () {
     var advertisementCard = map.querySelector('.map__card');
     if (advertisementCard) {
       map.removeChild(advertisementCard);
     }
     map.appendChild(renderAdvertisementCard(advertisements[index]));
-    var adCloseButton = document.querySelector('.popup__close');
-
-    adCloseButton.addEventListener('click', function () {
-      map.removeChild(map.querySelector('.map__card'));
-    });
-    setAddress(parseInt(evt.currentTarget.style.left, 10), parseInt(evt.currentTarget.style.top, 10));
   });
 
   return pin;
@@ -164,6 +158,9 @@ function renderAdvertisementCard(advertisement) {
   card.querySelector('.popup__description').textContent = advertisement.offer.description;
   card.querySelector('.popup__photos img').src = advertisement.offer.photos[0];
   card.querySelector('.popup__avatar').src = advertisement.author.avatar;
+  card.querySelector('.popup__close').addEventListener('click', function () {
+    map.removeChild(map.querySelector('.map__card'));
+  });
 
   return card;
 }
