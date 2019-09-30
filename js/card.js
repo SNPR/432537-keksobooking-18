@@ -11,6 +11,7 @@
 
   window.renderAdvertisementCard = function (advertisement) {
     var card = cardTemplate.cloneNode(true);
+    var map = document.querySelector('.map');
 
     card.querySelector('.popup__title').textContent = advertisement.offer.title;
     card.querySelector('.popup__text--address').textContent = advertisement.offer.address;
@@ -35,6 +36,9 @@
     card.querySelector('.popup__description').textContent = advertisement.offer.description;
     card.querySelector('.popup__photos img').src = advertisement.offer.photos[0];
     card.querySelector('.popup__avatar').src = advertisement.author.avatar;
+    card.querySelector('.popup__close').addEventListener('click', function () {
+      map.removeChild(map.querySelector('.map__card'));
+    });
 
     return card;
   };

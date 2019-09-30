@@ -12,22 +12,13 @@
     pinImage.src = advertisement.author.avatar;
     pinImage.alt = advertisement.offer.title;
 
-    pin.addEventListener('click', function (evt) {
+    pin.addEventListener('click', function () {
       var advertisementCard = map.querySelector('.map__card');
 
       if (advertisementCard) {
         map.removeChild(advertisementCard);
       }
       map.appendChild(window.renderAdvertisementCard(window.advertisements[index]));
-      var adCloseButton = document.querySelector('.popup__close');
-
-      adCloseButton.addEventListener('click', function () {
-        map.removeChild(map.querySelector('.map__card'));
-      });
-      window.setAddress(
-          parseInt(evt.currentTarget.style.left, 10),
-          parseInt(evt.currentTarget.style.top, 10)
-      );
     });
 
     return pin;
