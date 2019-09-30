@@ -107,7 +107,7 @@ var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pi
 var pinsConatiner = document.querySelector('.map__pins');
 var fragment = document.createDocumentFragment();
 
-function renderAdvertisement(advertisement) {
+function renderPin(advertisement, index) {
   var pin = pinTemplate.cloneNode(true);
   var pinImage = pin.querySelector('img');
 
@@ -115,11 +115,21 @@ function renderAdvertisement(advertisement) {
   pinImage.src = advertisement.author.avatar;
   pinImage.alt = advertisement.offer.title;
 
+  pin.addEventListener('click', function (evt) {
+    var advertisementCard = map.querySelector('.map__card');
+    if (advertisementCard) {
+      map.removeChild(advertisementCard);
+    }
+    map.appendChild(renderAdvertisementCard(advertisements[index]));
+    closeAdvertisementOnCloseClick();
+    setAddress(parseInt(evt.currentTarget.style.left, 10), parseInt(evt.currentTarget.style.top, 10));
+  });
+
   return pin;
 }
 
 for (var i = 0; i < advertisements.length; i++) {
-  fragment.appendChild(renderAdvertisement(advertisements[i]));
+  fragment.appendChild(renderPin(advertisements[i], i));
 }
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
@@ -165,22 +175,6 @@ toggleFieldSets(true);
 var mainPin = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 
-function renderAdvertisementOnPinClick() {
-  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-
-  pins.forEach(function (pin, index) {
-    pin.addEventListener('click', function (evt) {
-      var advertisementCard = map.querySelector('.map__card');
-      if (advertisementCard) {
-        map.removeChild(advertisementCard);
-      }
-      map.appendChild(renderAdvertisementCard(advertisements[index]));
-      closeAdvertisementOnCloseClick();
-      setAddress(parseInt(evt.currentTarget.style.left, 10), parseInt(evt.currentTarget.style.top, 10));
-    });
-  });
-}
-
 function closeAdvertisementOnCloseClick() {
   var adCloseButton = document.querySelector('.popup__close');
 
@@ -202,9 +196,6 @@ function activatePage() {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   pinsConatiner.appendChild(fragment);
-  map.appendChild(renderAdvertisementCard(advertisements[0]));
-  renderAdvertisementOnPinClick();
-  closeAdvertisementOnCloseClick();
   onEscPress();
 }
 
