@@ -121,7 +121,11 @@ function renderPin(advertisement, index) {
       map.removeChild(advertisementCard);
     }
     map.appendChild(renderAdvertisementCard(advertisements[index]));
-    closeAdvertisementOnCloseClick();
+    var adCloseButton = document.querySelector('.popup__close');
+
+    adCloseButton.addEventListener('click', function () {
+      map.removeChild(map.querySelector('.map__card'));
+    });
     setAddress(parseInt(evt.currentTarget.style.left, 10), parseInt(evt.currentTarget.style.top, 10));
   });
 
@@ -174,14 +178,6 @@ toggleFieldSets(true);
 
 var mainPin = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
-
-function closeAdvertisementOnCloseClick() {
-  var adCloseButton = document.querySelector('.popup__close');
-
-  adCloseButton.addEventListener('click', function () {
-    map.removeChild(map.querySelector('.map__card'));
-  });
-}
 
 function onEscPress() {
   document.addEventListener('keydown', function (evt) {
