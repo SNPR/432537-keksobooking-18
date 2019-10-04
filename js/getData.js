@@ -1,23 +1,23 @@
 'use strict';
-(function() {
+(function () {
   var MAX_TIMEOUT_TIME = 10000;
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
   function onError(message) {
     var error = errorTemplate.cloneNode(true);
     error.querySelector('.error__message').textContent = message;
-    error.querySelector('.error__button').addEventListener('click', function() {
+    error.querySelector('.error__button').addEventListener('click', function () {
       window.location.reload();
     });
     document.body.appendChild(error);
   }
 
-  window.getData = function(url, onSuccess) {
+  window.getData = function (url, onSuccess) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
 
-    xhr.addEventListener('load', function() {
+    xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
         onSuccess(xhr.response);
       } else {
@@ -25,11 +25,11 @@
       }
     });
 
-    xhr.addEventListener('error', function() {
+    xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
 
-    xhr.addEventListener('timeout', function() {
+    xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var map = document.querySelector('.map');
   var pinsConatiner = document.querySelector('.map__pins');
   var adForm = document.querySelector('.ad-form');
@@ -18,7 +18,7 @@
 
   var mainPin = document.querySelector('.map__pin--main');
 
-  mainPin.addEventListener('mousedown', function(evt) {
+  mainPin.addEventListener('mousedown', function (evt) {
     var target = evt.currentTarget;
     activatePage();
 
@@ -66,14 +66,14 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  mainPin.addEventListener('keydown', function(evt) {
+  mainPin.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.util.KeyCodes.enter) {
       activatePage();
     }
   });
 
   function toggleFieldSets(fieldsetsDisabled) {
-    document.querySelectorAll('fieldset').forEach(function(fieldset) {
+    document.querySelectorAll('fieldset').forEach(function (fieldset) {
       fieldset.disabled = fieldsetsDisabled;
     });
   }
@@ -81,7 +81,7 @@
   toggleFieldSets(true);
 
   var fragment = document.createDocumentFragment();
-  var onSuccess = function(advertisements) {
+  var onSuccess = function (advertisements) {
     for (var i = 0; i < advertisements.length; i++) {
       fragment.appendChild(window.renderPin(advertisements[i], i));
     }
@@ -90,7 +90,7 @@
   window.getData('https://js.dump.academy/keksobooking/data', onSuccess);
 
   function onEscPress() {
-    document.addEventListener('keydown', function(evt) {
+    document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === window.util.KeyCodes.escape && document.querySelector('.popup__close')) {
         map.removeChild(map.querySelector('.map__card'));
       }
