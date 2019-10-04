@@ -81,13 +81,11 @@
   toggleFieldSets(true);
 
   var fragment = document.createDocumentFragment();
-  var onSuccess = function (advertisements) {
-    for (var i = 0; i < advertisements.length; i++) {
-      fragment.appendChild(window.renderPin(advertisements[i], i));
+  window.renderPins = function () {
+    for (var i = 0; i < window.advertisements.length; i++) {
+      fragment.appendChild(window.renderPin(window.advertisements[i], i));
     }
   };
-
-  window.getData('https://js.dump.academy/keksobooking/data', onSuccess);
 
   function onEscPress() {
     document.addEventListener('keydown', function (evt) {
