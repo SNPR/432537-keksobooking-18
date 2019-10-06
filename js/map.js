@@ -81,9 +81,9 @@
   toggleFieldSets(true);
 
   var fragment = document.createDocumentFragment();
-  window.renderPins = function () {
-    for (var i = 0; i < window.advertisements.length; i++) {
-      fragment.appendChild(window.renderPin(window.advertisements[i], i));
+  window.renderPins = function (advertisements) {
+    for (var i = 0; i < advertisements.length; i++) {
+      fragment.appendChild(window.renderPin(advertisements[i], i));
     }
   };
 

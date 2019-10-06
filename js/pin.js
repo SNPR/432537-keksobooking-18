@@ -5,7 +5,6 @@
   var map = document.querySelector('.map');
 
   var onSuccess = function (advertisements) {
-    window.advertisements = advertisements;
     window.renderPin = function (advertisement, index) {
       var pin = pinTemplate.cloneNode(true);
       var pinImage = pin.querySelector('img');
@@ -20,12 +19,12 @@
         if (advertisementCard) {
           map.removeChild(advertisementCard);
         }
-        map.appendChild(window.renderAdvertisementCard(window.advertisements[index]));
+        map.appendChild(window.renderAdvertisementCard(advertisements[index]));
       });
 
       return pin;
     };
-    window.renderPins();
+    window.renderPins(advertisements);
   };
 
   window.getData('https://js.dump.academy/keksobooking/data', onSuccess);
