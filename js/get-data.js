@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   var MAX_TIMEOUT_TIME = 10000;
+  var DATA_URL = 'https://js.dump.academy/keksobooking/data';
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
   function onError(message) {
@@ -12,7 +13,7 @@
     document.body.appendChild(error);
   }
 
-  window.getData = function (url, onSuccess) {
+  window.getData = function (onSuccess) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -35,7 +36,7 @@
 
     xhr.timeout = MAX_TIMEOUT_TIME;
 
-    xhr.open('GET', url);
+    xhr.open('GET', DATA_URL);
     xhr.send();
   };
 })();

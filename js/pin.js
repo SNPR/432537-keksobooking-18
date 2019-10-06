@@ -27,5 +27,5 @@
     window.renderPins(advertisements);
   };
 
-  window.getData('https://js.dump.academy/keksobooking/data', onSuccess);
+  window.getData(onSuccess);
 })();
