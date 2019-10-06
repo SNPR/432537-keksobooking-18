@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var FORM_URL = 'https://js.dump.academy/keksobooking';
   var adForm = document.querySelector('.ad-form');
 
   var housingTypeToMinPrice = {
@@ -48,8 +49,49 @@
   }
 
   adForm.addEventListener('input', function (evt) {
-    var target = evt.target;
-    validateAdFormInputs(target);
+    validateAdFormInputs(evt.target);
+  });
+
+  var successTemplate = document.querySelector('#success').content.querySelector('.success');
+  var successElement = successTemplate.cloneNode(true);
+
+  function removeSuccessPopup(errorElement) {
+    if (errorElement) {
+      document.body.querySelector('main').removeChild(errorElement);
+      document.body.removeEventListener('click', onBodyClick);
+      document.removeEventListener('keydown', onEscPress);
+    }
+  }
+
+  function onBodyClick() {
+    removeSuccessPopup(successElement);
+  }
+
+  function onEscPress(evt) {
+    if (evt.keyCode === window.util.KeyCodes.escape) {
+      removeSuccessPopup(successElement);
+    }
+  }
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.responseType = 'json';
+
+    xhr.open('POST', FORM_URL);
+    xhr.send(new FormData(adForm));
+
+    xhr.addEventListener('load', function () {
+      if (xhr.status === 200) {
+        document.body.querySelector('main').appendChild(successElement);
+        document.body.addEventListener('click', onBodyClick);
+        document.addEventListener('keydown', onEscPress);
+      } else {
+        window.requests.onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
+    });
   });
 
   var roomsAmountSelect = document.querySelector('#room_number');
