@@ -3,24 +3,30 @@
   var MAX_TIMEOUT_TIME = 10000;
   var DATA_URL = 'https://js.dump.academy/keksobooking/data';
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  var errorElement = errorTemplate.cloneNode(true);
 
-  function removeErrorPopup(errorElement) {
-    document.body.querySelector('main').removeChild(errorElement);
+  function removeErrorPopup(error) {
+    document.body.querySelector('main').removeChild(error);
+    document.body.removeEventListener('click', onBodyClick);
+    document.removeEventListener('keydown', onEscPress);
+  }
+
+  function onBodyClick() {
+    removeErrorPopup(errorElement);
+  }
+
+  function onEscPress(evt) {
+    if (evt.keyCode === window.util.KeyCodes.escape) {
+      removeErrorPopup(errorElement);
+    }
   }
 
   function onError(message) {
-    var error = errorTemplate.cloneNode(true);
-    error.querySelector('.error__message').textContent = message;
+    errorElement.querySelector('.error__message').textContent = message;
 
-    document.body.querySelector('main').appendChild(error);
-    document.body.addEventListener('click', function () {
-      removeErrorPopup(error);
-    });
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.util.KeyCodes.escape) {
-        removeErrorPopup(error);
-      }
-    });
+    document.body.querySelector('main').appendChild(errorElement);
+    document.body.addEventListener('click', onBodyClick);
+    document.addEventListener('keydown', onEscPress);
   }
 
   function getData(onSuccess) {
