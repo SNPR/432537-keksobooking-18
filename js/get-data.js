@@ -4,16 +4,26 @@
   var DATA_URL = 'https://js.dump.academy/keksobooking/data';
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
+  function removeErrorPopup(errorElement) {
+    document.body.querySelector('main').removeChild(errorElement);
+  }
+
   function onError(message) {
     var error = errorTemplate.cloneNode(true);
     error.querySelector('.error__message').textContent = message;
-    error.querySelector('.error__button').addEventListener('click', function () {
-      window.location.reload();
+
+    document.body.querySelector('main').appendChild(error);
+    document.body.addEventListener('click', function () {
+      removeErrorPopup(error);
     });
-    document.body.appendChild(error);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.util.KeyCodes.escape) {
+        removeErrorPopup(error);
+      }
+    });
   }
 
-  window.getData = function (onSuccess) {
+  function getData(onSuccess) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -38,5 +48,10 @@
 
     xhr.open('GET', DATA_URL);
     xhr.send();
+  }
+
+  window.requests = {
+    getData: getData,
+    onError: onError
   };
 })();

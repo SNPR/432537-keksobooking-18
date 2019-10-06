@@ -29,5 +29,5 @@
     window.renderPins(window.advertisements);
   };
 
-  window.getData(getAdvertisementsData);
+  window.requests.getData(getAdvertisementsData);
 })();
