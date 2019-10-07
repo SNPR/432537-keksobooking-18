@@ -84,6 +84,7 @@
     pins.textContent = '';
     mainPin.style.left = MAIN_PIN_X_INITIAL + 'px';
     mainPin.style.top = MAIN_PIN_Y_INITIAL + 'px';
+    
     pins.appendChild(mainPin);
     window.map.setAddress(parseInt(mainPin.style.left, 10), parseInt(mainPin.style.top, 10));
     var mapCard = document.querySelector('.map__card');
