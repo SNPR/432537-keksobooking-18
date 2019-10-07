@@ -2,9 +2,10 @@
 
 (function () {
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var pinsConatiner = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
 
-  window.renderPin = function (advertisement, index) {
+  function renderPin(advertisement, index) {
     var pin = pinTemplate.cloneNode(true);
     var pinImage = pin.querySelector('img');
 
@@ -22,12 +23,13 @@
     });
 
     return pin;
-  };
+  }
 
-  var getAdvertisementsData = function (advertisements) {
-    window.advertisements = advertisements;
-    window.renderPins(window.advertisements);
-  };
+  function renderPins(advertisements) {
+    for (var i = 0; i < advertisements.length; i++) {
+      pinsConatiner.appendChild(renderPin(advertisements[i], i));
+    }
+  }
 
-  window.getData(getAdvertisementsData);
+  window.pin = {renderPin: renderPin, renderPins: renderPins};
 })();
