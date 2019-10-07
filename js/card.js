@@ -33,8 +33,17 @@
     });
     featuresPopup.appendChild(featureFragment);
 
+    var photosFragment = document.createDocumentFragment();
+    advertisement.offer.photos.forEach(function (photo) {
+      var photoElement = card.querySelector('.popup__photo').cloneNode(false);
+
+      photoElement.src = photo;
+      photosFragment.appendChild(photoElement);
+    });
+
     card.querySelector('.popup__description').textContent = advertisement.offer.description;
-    card.querySelector('.popup__photos img').src = advertisement.offer.photos[0];
+    card.querySelector('.popup__photos').textContent = '';
+    card.querySelector('.popup__photos').appendChild(photosFragment);
     card.querySelector('.popup__avatar').src = advertisement.author.avatar;
     card.querySelector('.popup__close').addEventListener('click', function () {
       map.removeChild(map.querySelector('.map__card'));

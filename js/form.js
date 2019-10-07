@@ -1,7 +1,12 @@
 'use strict';
 
 (function () {
+  var FORM_URL = 'https://js.dump.academy/keksobooking';
   var adForm = document.querySelector('.ad-form');
+  var mainPin = document.querySelector('.map__pin--main');
+  var pins = document.querySelector('.map__pins');
+  var MAIN_PIN_X_INITIAL = 570;
+  var MAIN_PIN_Y_INITIAL = 375;
 
   var housingTypeToMinPrice = {
     flat: 1000,
@@ -48,9 +53,69 @@
   }
 
   adForm.addEventListener('input', function (evt) {
-    var target = evt.target;
-    validateAdFormInputs(target);
+    validateAdFormInputs(evt.target);
   });
+
+  var successTemplate = document.querySelector('#success').content.querySelector('.success');
+  var successElement = successTemplate.cloneNode(true);
+
+  function removeSuccessPopup(errorElement) {
+    if (errorElement) {
+      document.body.querySelector('main').removeChild(errorElement);
+      document.body.removeEventListener('click', onBodyClick);
+      document.removeEventListener('keydown', onEscPress);
+    }
+  }
+
+  function onBodyClick() {
+    removeSuccessPopup(successElement);
+  }
+
+  function onEscPress(evt) {
+    if (evt.keyCode === window.util.KeyCodes.escape) {
+      removeSuccessPopup(successElement);
+    }
+  }
+
+  function resetPage() {
+    adForm.reset();
+    document.querySelector('.map').classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    pins.textContent = '';
+    mainPin.style.left = MAIN_PIN_X_INITIAL + 'px';
+    mainPin.style.top = MAIN_PIN_Y_INITIAL + 'px';
+    pins.appendChild(mainPin);
+    window.map.setAddress(parseInt(mainPin.style.left, 10), parseInt(mainPin.style.top, 10));
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      document.querySelector('.map').removeChild(mapCard);
+    }
+    mainPin.addEventListener('click', window.map.activatePage);
+  }
+
+  function onFormSubmit(evt) {
+    evt.preventDefault();
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.responseType = 'json';
+
+    xhr.open('POST', FORM_URL);
+    xhr.send(new FormData(adForm));
+
+    xhr.addEventListener('load', function () {
+      if (xhr.status === 200) {
+        document.body.querySelector('main').appendChild(successElement);
+        document.body.addEventListener('click', onBodyClick);
+        document.addEventListener('keydown', onEscPress);
+        resetPage();
+      } else {
+        window.requests.onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
+    });
+  }
+
+  adForm.addEventListener('submit', onFormSubmit);
 
   var roomsAmountSelect = document.querySelector('#room_number');
   var seatingCapacitySelect = document.querySelector('#capacity');
