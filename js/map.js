@@ -102,4 +102,9 @@
     onEscPress();
     mainPin.removeEventListener('click', activatePage);
   }
+
+  window.map = {
+    setAddress: setAddress,
+    activatePage: activatePage
+  };
 })();
