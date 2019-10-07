@@ -3,17 +3,33 @@
   var MAX_TIMEOUT_TIME = 10000;
   var DATA_URL = 'https://js.dump.academy/keksobooking/data';
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  var errorElement = errorTemplate.cloneNode(true);
 
-  function onError(message) {
-    var error = errorTemplate.cloneNode(true);
-    error.querySelector('.error__message').textContent = message;
-    error.querySelector('.error__button').addEventListener('click', function () {
-      window.location.reload();
-    });
-    document.body.appendChild(error);
+  function removeErrorPopup(error) {
+    document.body.querySelector('main').removeChild(error);
+    document.body.removeEventListener('click', onBodyClick);
+    document.removeEventListener('keydown', onEscPress);
   }
 
-  window.getData = function (onSuccess) {
+  function onBodyClick() {
+    removeErrorPopup(errorElement);
+  }
+
+  function onEscPress(evt) {
+    if (evt.keyCode === window.util.KeyCodes.escape) {
+      removeErrorPopup(errorElement);
+    }
+  }
+
+  function onError(message) {
+    errorElement.querySelector('.error__message').textContent = message;
+
+    document.body.querySelector('main').appendChild(errorElement);
+    document.body.addEventListener('click', onBodyClick);
+    document.addEventListener('keydown', onEscPress);
+  }
+
+  function getData(onSuccess) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -38,5 +54,10 @@
 
     xhr.open('GET', DATA_URL);
     xhr.send();
+  }
+
+  window.requests = {
+    getData: getData,
+    onError: onError
   };
 })();

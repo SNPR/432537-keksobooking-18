@@ -97,7 +97,7 @@
     toggleFieldSets(false);
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
-    window.getData(getAdvertisementsData);
+    window.requests.getData(getAdvertisementsData);
     setAddress(parseInt(mainPin.style.left, 10), parseInt(mainPin.style.top, 10));
     onEscPress();
     mainPin.removeEventListener('click', activatePage);
