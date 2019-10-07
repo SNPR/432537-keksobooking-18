@@ -26,7 +26,7 @@
 
   var getAdvertisementsData = function (advertisements) {
     window.advertisements = advertisements;
-    window.renderPins(window.advertisements);
+    window.map.renderPins(window.advertisements);
   };
 
   window.requests.getData(getAdvertisementsData);

@@ -3,6 +3,8 @@
 (function () {
   var FORM_URL = 'https://js.dump.academy/keksobooking';
   var adForm = document.querySelector('.ad-form');
+  var mainPin = document.querySelector('.map__pin--main');
+  var pins = document.querySelector('.map__pins');
 
   var housingTypeToMinPrice = {
     flat: 1000,
@@ -73,7 +75,16 @@
     }
   }
 
-  adForm.addEventListener('submit', function (evt) {
+  function resetPage() {
+    adForm.reset();
+    document.querySelector('.map').classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    pins.textContent = '';
+    pins.appendChild(mainPin);
+    window.map.setAddress(parseInt(mainPin.style.left, 10), parseInt(mainPin.style.top, 10));
+  }
+
+  function onFormSubmit(evt) {
     evt.preventDefault();
 
     var xhr = new XMLHttpRequest();
@@ -88,11 +99,14 @@
         document.body.querySelector('main').appendChild(successElement);
         document.body.addEventListener('click', onBodyClick);
         document.addEventListener('keydown', onEscPress);
+        resetPage();
       } else {
         window.requests.onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
-  });
+  }
+
+  adForm.addEventListener('submit', onFormSubmit);
 
   var roomsAmountSelect = document.querySelector('#room_number');
   var seatingCapacitySelect = document.querySelector('#capacity');

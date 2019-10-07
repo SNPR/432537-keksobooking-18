@@ -81,11 +81,11 @@
   toggleFieldSets(true);
 
   var fragment = document.createDocumentFragment();
-  window.renderPins = function (advertisements) {
+  function renderPins(advertisements) {
     for (var i = 0; i < advertisements.length; i++) {
       fragment.appendChild(window.renderPin(advertisements[i], i));
     }
-  };
+  }
 
   function onEscPress() {
     document.addEventListener('keydown', function (evt) {
@@ -103,4 +103,9 @@
     setAddress(parseInt(mainPin.style.left, 10), parseInt(mainPin.style.top, 10));
     onEscPress();
   }
+
+  window.map = {
+    renderPins: renderPins,
+    setAddress: setAddress
+  };
 })();
