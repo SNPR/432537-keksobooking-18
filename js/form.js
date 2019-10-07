@@ -5,6 +5,8 @@
   var adForm = document.querySelector('.ad-form');
   var mainPin = document.querySelector('.map__pin--main');
   var pins = document.querySelector('.map__pins');
+  var MAIN_PIN_X_INITIAL = 570;
+  var MAIN_PIN_Y_INITIAL = 375;
 
   var housingTypeToMinPrice = {
     flat: 1000,
@@ -80,6 +82,8 @@
     document.querySelector('.map').classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     pins.textContent = '';
+    mainPin.style.left = MAIN_PIN_X_INITIAL + 'px';
+    mainPin.style.top = MAIN_PIN_Y_INITIAL + 'px';
     pins.appendChild(mainPin);
     window.map.setAddress(parseInt(mainPin.style.left, 10), parseInt(mainPin.style.top, 10));
   }
