@@ -95,7 +95,7 @@
 
   function onFormSubmit(evt) {
     evt.preventDefault();
-    window.requests.sendFormData(adForm, function () {
+    window.network.sendFormData(adForm, function () {
       document.body.querySelector('main').appendChild(successElement);
       document.body.addEventListener('click', onBodyClick);
       document.addEventListener('keydown', onEscPress);

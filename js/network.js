@@ -25,7 +25,7 @@
       if (xhr.status === 200) {
         callback();
       } else {
-        window.requests.onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        window.network.onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
   }
@@ -75,7 +75,7 @@
     xhr.send();
   }
 
-  window.requests = {
+  window.network = {
     getData: getData,
     onError: onError,
     sendFormData: sendFormData
