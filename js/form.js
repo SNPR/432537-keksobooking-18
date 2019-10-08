@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var FORM_URL = 'https://js.dump.academy/keksobooking';
   var adForm = document.querySelector('.ad-form');
   var mainPin = document.querySelector('.map__pin--main');
   var pins = document.querySelector('.map__pins');
@@ -96,23 +95,11 @@
 
   function onFormSubmit(evt) {
     evt.preventDefault();
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.responseType = 'json';
-
-    xhr.open('POST', FORM_URL);
-    xhr.send(new FormData(adForm));
-
-    xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        document.body.querySelector('main').appendChild(successElement);
-        document.body.addEventListener('click', onBodyClick);
-        document.addEventListener('keydown', onEscPress);
-        resetPage();
-      } else {
-        window.requests.onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
+    window.requests.sendFormData(adForm, function () {
+      document.body.querySelector('main').appendChild(successElement);
+      document.body.addEventListener('click', onBodyClick);
+      document.addEventListener('keydown', onEscPress);
+      resetPage();
     });
   }
 

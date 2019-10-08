@@ -1,7 +1,9 @@
 'use strict';
+
 (function () {
   var MAX_TIMEOUT_TIME = 10000;
   var DATA_URL = 'https://js.dump.academy/keksobooking/data';
+  var FORM_URL = 'https://js.dump.academy/keksobooking';
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
   var errorElement = errorTemplate.cloneNode(true);
 
@@ -9,6 +11,23 @@
     document.body.querySelector('main').removeChild(error);
     document.body.removeEventListener('click', onBodyClick);
     document.removeEventListener('keydown', onEscPress);
+  }
+
+  function sendFormData(adForm, callback) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.responseType = 'json';
+
+    xhr.open('POST', FORM_URL);
+    xhr.send(new FormData(adForm));
+
+    xhr.addEventListener('load', function () {
+      if (xhr.status === 200) {
+        callback();
+      } else {
+        window.requests.onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
+    });
   }
 
   function onBodyClick() {
@@ -58,6 +77,7 @@
 
   window.requests = {
     getData: getData,
-    onError: onError
+    onError: onError,
+    sendFormData: sendFormData
   };
 })();
