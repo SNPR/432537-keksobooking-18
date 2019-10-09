@@ -26,8 +26,12 @@
     return pin;
   }
 
-  function renderPins(advertisements) {
-    for (var i = 0; i < MAX_ADVERTISEMENTS_AMOUNT; i++) {
+  function renderPins(advertisements, amount) {
+    if (amount > MAX_ADVERTISEMENTS_AMOUNT) {
+      amount = MAX_ADVERTISEMENTS_AMOUNT;
+    }
+
+    for (var i = 0; i < amount; i++) {
       pinsConatiner.appendChild(renderPin(advertisements[i], i));
     }
   }
