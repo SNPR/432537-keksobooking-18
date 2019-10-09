@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var MAX_ADVERTISEMENTS_AMOUNT = 5;
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinsConatiner = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
@@ -26,7 +27,7 @@
   }
 
   function renderPins(advertisements) {
-    for (var i = 0; i < advertisements.length; i++) {
+    for (var i = 0; i < MAX_ADVERTISEMENTS_AMOUNT; i++) {
       pinsConatiner.appendChild(renderPin(advertisements[i], i));
     }
   }
