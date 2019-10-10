@@ -8,6 +8,7 @@
   var housingPrice = filtersForm.querySelector('#housing-price');
   var housingRooms = filtersForm.querySelector('#housing-rooms');
   var housingGuests = filtersForm.querySelector('#housing-guests');
+  var housingFeatures = filtersForm.querySelector('#housing-features');
 
   var Price = {
     Type: {
@@ -59,6 +60,20 @@
     return housingGuests.value === 'any' ? true : element.offer.guests === Number(housingGuests.value);
   }
 
+  function getHousingFeatures(element) {
+    var selectedFeatures = Array.prototype.filter
+      .call(housingFeatures.children, function (feature) {
+        return feature.checked === true;
+      })
+      .map(function (item) {
+        return item.value;
+      });
+
+    return selectedFeatures.every(function (feature) {
+      return element.offer.features.includes(feature);
+    });
+  }
+
   function filterAll(data) {
     return data
       .filter(function (element) {
@@ -66,7 +81,8 @@
           getHousingType(element) &&
           getHousingPrice(element) &&
           getHousingRooms(element) &&
-          getHousingGuests(element)
+          getHousingGuests(element) &&
+          getHousingFeatures(element)
         );
       })
       .slice(0, MAX_ADVERTISEMENTS_AMOUNT);
