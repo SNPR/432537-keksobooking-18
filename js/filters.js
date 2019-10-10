@@ -88,11 +88,14 @@
       .slice(0, MAX_ADVERTISEMENTS_AMOUNT);
   }
 
-  filtersForm.addEventListener('change', function () {
-    removeCard();
-    removePins();
-    window.pin.renderPins(window.filters.filterAll(window.advertisements));
-  });
+  filtersForm.addEventListener(
+      'change',
+      window.debounce(function () {
+        removeCard();
+        removePins();
+        window.pin.renderPins(window.filters.filterAll(window.advertisements));
+      })
+  );
 
   window.filters = {
     filterAll: filterAll
