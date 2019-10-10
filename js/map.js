@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var MAX_ADVERTISEMENTS_AMOUNT = 5;
   var MAP_PIN_HEIGHT = 80;
   var MAP_PIN_WIDTH = 40;
   var MAP_WIDTH = 1200;
@@ -91,7 +90,7 @@
 
   var getAdvertisementsData = function (advertisements) {
     window.advertisements = advertisements;
-    window.pin.renderPins(window.advertisements, MAX_ADVERTISEMENTS_AMOUNT);
+    window.pin.renderPins(window.filters.filterAll(window.advertisements));
   };
 
   function activatePage() {

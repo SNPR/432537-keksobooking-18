@@ -1,30 +1,43 @@
 'use strict';
 
 (function () {
+  var MAX_ADVERTISEMENTS_AMOUNT = 5;
   var filtersForm = document.querySelector('.map__filters');
   var map = document.querySelector('.map');
+  var housingType = filtersForm.querySelector('#housing-type');
 
-  function filterAdvertisementsByHousingType(filterOption) {
+  function removeCard() {
     if (document.querySelector('.popup__close')) {
       map.removeChild(map.querySelector('.map__card'));
     }
-    if (filterOption === 'any') {
-      return window.advertisements;
-    }
-
-    document.querySelector('.map__pins').textContent = '';
-
-    return window.advertisements.filter(function (advertisement) {
-      return advertisement['offer']['type'] === filterOption;
-    });
   }
 
-  filtersForm.addEventListener('change', function (evt) {
-    switch (evt.target.name) {
-      case 'housing-type':
-        var filteredAdvertisements = filterAdvertisementsByHousingType(evt.target.value);
-        window.pin.renderPins(filteredAdvertisements, filteredAdvertisements.length);
-        break;
-    }
+  function removePins() {
+    var mainPin = document.querySelector('.map__pin--main');
+    var pins = document.querySelector('.map__pins');
+    pins.textContent = '';
+    pins.appendChild(mainPin);
+  }
+
+  function getHousingType(element) {
+    return housingType.value === 'any' ? true : element.offer.type === housingType.value;
+  }
+
+  function filterAll(data) {
+    return data
+      .filter(function (element) {
+        return getHousingType(element);
+      })
+      .slice(0, MAX_ADVERTISEMENTS_AMOUNT);
+  }
+
+  filtersForm.addEventListener('change', function () {
+    removeCard();
+    removePins();
+    window.pin.renderPins(window.filters.filterAll(window.advertisements));
   });
+
+  window.filters = {
+    filterAll: filterAll
+  };
 })();
