@@ -1,13 +1,13 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-  var adForm = document.querySelector('.ad-form');
   var MAP_PIN_HEIGHT = 80;
   var MAP_PIN_WIDTH = 40;
   var MAP_WIDTH = 1200;
   var MIN_PIN_Y_POSITION = 130;
   var MAX_PIN_Y_POSITION = 630;
+  var map = document.querySelector('.map');
+  var adForm = document.querySelector('.ad-form');
 
   var addressInput = document.querySelector('#address');
 
@@ -90,7 +90,7 @@
 
   var getAdvertisementsData = function (advertisements) {
     window.advertisements = advertisements;
-    window.pin.renderPins(window.advertisements);
+    window.pin.renderPins(window.filters.filterAll(window.advertisements));
   };
 
   function activatePage() {
