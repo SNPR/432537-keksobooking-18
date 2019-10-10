@@ -5,6 +5,19 @@
   var filtersForm = document.querySelector('.map__filters');
   var map = document.querySelector('.map');
   var housingType = filtersForm.querySelector('#housing-type');
+  var housingPrice = filtersForm.querySelector('#housing-price');
+
+  var Price = {
+    Type: {
+      LOW: 'low',
+      MIDDLE: 'middle',
+      HIGH: 'high'
+    },
+    Value: {
+      MIN: 10000,
+      MAX: 50000
+    }
+  };
 
   function removeCard() {
     if (document.querySelector('.popup__close')) {
@@ -23,10 +36,23 @@
     return housingType.value === 'any' ? true : element.offer.type === housingType.value;
   }
 
+  function getHousingPrice(element) {
+    switch (housingPrice.value) {
+      case Price.Type.LOW:
+        return element.offer.price < Price.Value.MIN;
+      case Price.Type.MIDDLE:
+        return element.offer.price >= Price.Value.MIN && element.offer.price <= Price.Value.MAX;
+      case Price.Type.HIGH:
+        return element.offer.price >= Price.Value.MAX;
+      default:
+        return true;
+    }
+  }
+
   function filterAll(data) {
     return data
       .filter(function (element) {
-        return getHousingType(element);
+        return getHousingType(element) && getHousingPrice(element);
       })
       .slice(0, MAX_ADVERTISEMENTS_AMOUNT);
   }
