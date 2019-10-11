@@ -8,8 +8,11 @@
   var MAX_PIN_Y_POSITION = 630;
   var map = document.querySelector('.map');
   var adForm = document.querySelector('.ad-form');
-
   var addressInput = document.querySelector('#address');
+  var Coordinate = function (x, y) {
+    this.x = x;
+    this.y = y;
+  };
 
   function setAddress(x, y) {
     addressInput.value = x + MAP_PIN_WIDTH / 2 + ', ' + (y + MAP_PIN_HEIGHT);
@@ -22,21 +25,11 @@
   mainPin.addEventListener('mousedown', function (evt) {
     var target = evt.currentTarget;
 
-    var startCoords = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
+    var startCoords = new Coordinate(evt.clientX, evt.clientY);
 
     function onMouseMove(moveEvt) {
-      var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
-      };
-
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
+      var shift = new Coordinate(startCoords.x - moveEvt.clientX, startCoords.y - moveEvt.clientY);
+      startCoords = new Coordinate(moveEvt.clientX, moveEvt.clientY);
 
       mainPin.style.top = mainPin.offsetTop - shift.y + 'px';
       mainPin.style.left = mainPin.offsetLeft - shift.x + 'px';
