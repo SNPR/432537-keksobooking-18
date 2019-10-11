@@ -61,17 +61,16 @@
   }
 
   function getHousingFeatures(element) {
-    var selectedFeatures = Array.prototype.filter
-      .call(housingFeatures.children, function (feature) {
+    return Array.from(housingFeatures.children)
+      .filter(function (feature) {
         return feature.checked === true;
       })
       .map(function (item) {
         return item.value;
+      })
+      .every(function (feature) {
+        return element.offer.features.includes(feature);
       });
-
-    return selectedFeatures.every(function (feature) {
-      return element.offer.features.includes(feature);
-    });
   }
 
   function filterAll(data) {
