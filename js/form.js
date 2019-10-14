@@ -153,7 +153,14 @@
     checkRooms(evt.target.value);
   });
 
-  function onFileUpload(input, preview) {
+  function appendImage(reader, preview) {
+    var img = document.createElement('img');
+    img.src = reader.result;
+    img.height = 100;
+    preview.appendChild(img);
+  }
+
+  function onFileUpload(input, preview, appendItems) {
     return function () {
       var file = input.files[0];
       var fileName = file.name.toLowerCase();
@@ -166,14 +173,13 @@
         var reader = new FileReader();
 
         reader.addEventListener('load', function () {
-          if (!preview.querySelector('img')) {
-            var img = document.createElement('img');
-            img.src = reader.result;
-            img.height = 100;
-            preview.appendChild(img);
+          if (appendItems && preview.querySelector('img')) {
+            appendImage(reader, preview);
+          } else if (!preview.querySelector('img')) {
+            appendImage(reader, preview);
+          } else {
+            preview.querySelector('img').src = reader.result;
           }
-
-          preview.querySelector('img').src = reader.result;
         });
 
         reader.readAsDataURL(file);
@@ -181,6 +187,6 @@
     };
   }
 
-  apartmentInput.addEventListener('change', onFileUpload(apartmentInput, apartmentPhotoPreview));
-  avatarInput.addEventListener('change', onFileUpload(avatarInput, avatarPreview));
+  apartmentInput.addEventListener('change', onFileUpload(apartmentInput, apartmentPhotoPreview, true));
+  avatarInput.addEventListener('change', onFileUpload(avatarInput, avatarPreview, false));
 })();
