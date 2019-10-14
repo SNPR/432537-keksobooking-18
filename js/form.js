@@ -6,6 +6,13 @@
   var pins = document.querySelector('.map__pins');
   var MAIN_PIN_X_INITIAL = 570;
   var MAIN_PIN_Y_INITIAL = 375;
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+  var avatarInput = document.querySelector('.ad-form-header__input');
+  var avatarPreview = document.querySelector('.ad-form-header__preview');
+
+  var apartmentInput = document.querySelector('.ad-form__input');
+  var apartmentPhotoPreview = document.querySelector('.ad-form__photo');
 
   var housingTypeToMinPrice = {
     flat: 1000,
@@ -76,7 +83,13 @@
     }
   }
 
+  function removeImagesFromForm() {
+    avatarPreview.querySelector('img').src = 'img/muffin-grey.svg';
+    apartmentPhotoPreview.textContent = '';
+  }
+
   function resetPage() {
+    removeImagesFromForm();
     adForm.reset();
     document.querySelector('.map').classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
@@ -92,6 +105,10 @@
     }
     mainPin.addEventListener('click', window.map.activatePage);
   }
+
+  adForm.addEventListener('reset', function () {
+    removeImagesFromForm();
+  });
 
   function onFormSubmit(evt) {
     evt.preventDefault();
@@ -135,4 +152,35 @@
   roomsAmountSelect.addEventListener('change', function (evt) {
     checkRooms(evt.target.value);
   });
+
+  function onFileUpload(input, preview) {
+    return function () {
+      var file = input.files[0];
+      var fileName = file.name.toLowerCase();
+
+      var matches = FILE_TYPES.some(function (item) {
+        return fileName.endsWith(item);
+      });
+
+      if (matches) {
+        var reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          if (!preview.querySelector('img')) {
+            var img = document.createElement('img');
+            img.src = reader.result;
+            img.height = 100;
+            preview.appendChild(img);
+          }
+
+          preview.querySelector('img').src = reader.result;
+        });
+
+        reader.readAsDataURL(file);
+      }
+    };
+  }
+
+  apartmentInput.addEventListener('change', onFileUpload(apartmentInput, apartmentPhotoPreview));
+  avatarInput.addEventListener('change', onFileUpload(avatarInput, avatarPreview));
 })();
