@@ -19,7 +19,7 @@
       if (advertisementCard) {
         map.removeChild(advertisementCard);
       }
-      map.appendChild(window.renderAdvertisementCard(advertisement));
+      map.appendChild(window.card.renderAdvertisementCard(advertisement));
     });
 
     return pin;

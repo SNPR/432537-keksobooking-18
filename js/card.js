@@ -9,7 +9,7 @@
   };
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  window.renderAdvertisementCard = function (advertisement) {
+  function renderAdvertisementCard(advertisement) {
     var card = cardTemplate.cloneNode(true);
     var map = document.querySelector('.map');
 
@@ -50,5 +50,7 @@
     });
 
     return card;
-  };
+  }
+
+  window.card = {renderAdvertisementCard: renderAdvertisementCard};
 })();
