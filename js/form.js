@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
-  var adForm = document.querySelector('.ad-form');
-  var mainPin = document.querySelector('.map__pin--main');
-  var pins = document.querySelector('.map__pins');
   var MAIN_PIN_X_INITIAL = 570;
   var MAIN_PIN_Y_INITIAL = 375;
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var adForm = document.querySelector('.ad-form');
+  var mainPin = document.querySelector('.map__pin--main');
+  var pins = document.querySelector('.map__pins');
 
   var avatarInput = document.querySelector('.ad-form-header__input');
   var avatarPreview = document.querySelector('.ad-form-header__preview');
