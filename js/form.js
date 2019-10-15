@@ -65,9 +65,9 @@
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var successElement = successTemplate.cloneNode(true);
 
-  function removeSuccessPopup(errorElement) {
-    if (errorElement) {
-      document.body.querySelector('main').removeChild(errorElement);
+  function removeSuccessPopup(element) {
+    if (element) {
+      document.body.querySelector('main').removeChild(element);
       document.body.removeEventListener('click', onBodyClick);
       document.removeEventListener('keydown', onEscPress);
     }
