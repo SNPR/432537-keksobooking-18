@@ -26,9 +26,9 @@
   }
 
   function renderPins(advertisements) {
-    for (var i = 0; i < advertisements.length; i++) {
-      pinsConatiner.appendChild(renderPin(advertisements[i]));
-    }
+    advertisements.forEach(function (advertisement) {
+      pinsConatiner.appendChild(renderPin(advertisement));
+    });
   }
 
   window.pin = {renderPin: renderPin, renderPins: renderPins};
