@@ -2,9 +2,9 @@
 
 (function () {
   var KeyCodes = {
-    enter: 13,
-    escape: 27,
-    space: 32
+    ENTER: 13,
+    ESCAPE: 27,
+    SPACE: 32
   };
 
   window.util = {

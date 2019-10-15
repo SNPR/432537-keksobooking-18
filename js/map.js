@@ -60,7 +60,7 @@
   });
 
   mainPin.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.util.KeyCodes.enter) {
+    if (evt.keyCode === window.util.KeyCodes.ENTER) {
       activatePage();
     }
   });
@@ -75,7 +75,7 @@
 
   function onEscPress() {
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.util.KeyCodes.escape && document.querySelector('.popup__close')) {
+      if (evt.keyCode === window.util.KeyCodes.ESCAPE && document.querySelector('.popup__close')) {
         map.removeChild(map.querySelector('.map__card'));
       }
     });

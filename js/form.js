@@ -78,7 +78,7 @@
   }
 
   function onEscPress(evt) {
-    if (evt.keyCode === window.util.KeyCodes.escape) {
+    if (evt.keyCode === window.util.KeyCodes.ESCAPE) {
       removeSuccessPopup(successElement);
     }
   }
