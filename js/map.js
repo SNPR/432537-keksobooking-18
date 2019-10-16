@@ -81,10 +81,10 @@
     });
   }
 
-  var getAdvertisementsData = function (advertisements) {
+  function getAdvertisementsData(advertisements) {
     window.advertisements = advertisements;
     window.pin.renderPins(window.filters.applyAll(window.advertisements));
-  };
+  }
 
   function activatePage() {
     toggleFieldSets(false);
