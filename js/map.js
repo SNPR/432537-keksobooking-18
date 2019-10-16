@@ -83,7 +83,7 @@
 
   var getAdvertisementsData = function (advertisements) {
     window.advertisements = advertisements;
-    window.pin.renderPins(window.filters.filterAll(window.advertisements));
+    window.pin.renderPins(window.filters.applyAll(window.advertisements));
   };
 
   function activatePage() {

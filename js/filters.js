@@ -73,7 +73,7 @@
       });
   }
 
-  function filterAll(data) {
+  function applyAll(data) {
     return data
       .filter(function (element) {
         return (
@@ -92,11 +92,11 @@
       window.debounce(function () {
         removeCard();
         removePins();
-        window.pin.renderPins(window.filters.filterAll(window.advertisements));
+        window.pin.renderPins(window.filters.applyAll(window.advertisements));
       })
   );
 
   window.filters = {
-    filterAll: filterAll
+    applyAll: applyAll
   };
 })();
