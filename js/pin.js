@@ -5,7 +5,7 @@
   var pinsConatiner = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
 
-  function renderPin(advertisement) {
+  function render(advertisement) {
     var pin = pinTemplate.cloneNode(true);
     var pinImage = pin.querySelector('img');
 
@@ -25,11 +25,11 @@
     return pin;
   }
 
-  function renderPins(advertisements) {
+  function renderMany(advertisements) {
     advertisements.forEach(function (advertisement) {
-      pinsConatiner.appendChild(renderPin(advertisement));
+      pinsConatiner.appendChild(render(advertisement));
     });
   }
 
-  window.pin = {renderPin: renderPin, renderPins: renderPins};
+  window.pin = {render: render, renderMany: renderMany};
 })();

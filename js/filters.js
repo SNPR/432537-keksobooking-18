@@ -92,7 +92,7 @@
       window.debounce(function () {
         removeCard();
         removePins();
-        window.pin.renderPins(window.filters.applyAll(window.advertisements));
+        window.pin.renderMany(window.filters.applyAll(window.advertisements));
       })
   );
 
